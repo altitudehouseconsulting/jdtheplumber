@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!--
+    EN: Basic document metadata (charset + responsive layout).
+    ES: Metadatos básicos del documento (charset + diseño responsivo).
+  -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!--
+    EN: Page title shown in the browser tab + used by search engines.
+    ES: Título de la página que aparece en la pestaña + usado por buscadores.
+  -->
+  <title>JD The Plumber LLC | Commercial & Residential Plumbing</title>
+
+  <!--
+    EN: Short description for SEO and sharing previews.
+    ES: Descripción corta para SEO y vistas previas al compartir.
+  -->
+  <meta name="description" content="JD The Plumber LLC provides commercial and residential plumbing services: repairs, installs, water heaters, drain cleaning, leak detection, and emergency service." />
+
+  <style>
+    /* =======================================================================
+       EN: CSS variables (theme colors, shadows, spacing).
+       ES: Variables CSS (colores del tema, sombras, espaciado).
+       ======================================================================= */
+    :root{
+      --bg:#0b1220;
+      --text:#e9eefb;
+      --muted:#b9c3dd;
+      --line:rgba(255,255,255,.10);
+      --accent:#4aa3ff;
+      --accent2:#2fe0b3;
+      --danger:#ff4d5e;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+
+    /* EN: Use border-box for predictable sizing. ES: Caja consistente. */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    /* -----------------------------------------------------------------------
+       EN: Global body styling (background gradients + typography).
+       ES: Estilos globales del body (degradados + tipografía).
+       ----------------------------------------------------------------------- */
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(74,163,255,.25), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(47,224,179,.20), transparent 60%),
+        linear-gradient(180deg, #070b14, var(--bg));
+      color:var(--text);
+      line-height:1.5;
+    }
+
+    /* EN: Keep links inheriting color so the theme stays consistent.
+       ES: Mantener color de enlaces para consistencia visual. */
+    a{color:inherit}
+
+    /* EN: Center container with max width; ES: Contenedor centrado con ancho máximo. */
+    .container{width:min(1100px, 92vw); margin:0 auto}
+
+    /* =======================================================================
+       TOP BAR / NAVIGATION
+       EN: Sticky navigation bar at the top.
+       ES: Barra de navegación fija (sticky) arriba.
+       ======================================================================= */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: rgba(7,11,20,.65);
+      border-bottom:1px solid var(--line);
+    }
+
+    /* EN: Nav row layout; ES: Distribución de la fila de navegación. */
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+
+    /* EN: Brand (logo + company name). ES: Marca (logo + nombre). */
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+      min-width: 240px;
+    }
+
+    /* EN: Simple generated logo (no image file needed).
+       ES: Logo generado (sin archivo de imagen). */
+    .logo{
+      width:40px; height:40px; border-radius:12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 25px rgba(74,163,255,.25);
+      position:relative;
+    }
+
+    /* EN: Decorative mark inside the logo.
+       ES: Marca decorativa dentro del logo. */
+    .logo:after{
+      content:"";
+      position:absolute; inset:10px 11px 10px 11px;
+      border:2px solid rgba(7,11,20,.65);
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-radius:10px;
+      transform: rotate(-35deg);
+    }
+
+    .brand b{display:block; font-size:14px; letter-spacing:.3px}
+    .brand small{display:block; color:var(--muted); font-size:12px}
+
+    /* EN: Desktop navigation links; ES: Enlaces de navegación (escritorio). */
+    .navlinks{display:flex; gap:14px; align-items:center}
+    .navlinks a{
+      text-decoration:none;
+      color:var(--muted);
+      padding:10px 10px;
+      border-radius:12px;
+    }
+    .navlinks a:hover{color:var(--text); background: rgba(255,255,255,.06)}
+
+    /* EN: Right-side CTA buttons (desktop).
+       ES: Botones de llamada a la acción (escritorio). */
+    .ctaRow{display:flex; gap:10px; align-items:center}
+
+    /* -----------------------------------------------------------------------
+       BUTTONS
+       EN: Shared button styles.
+       ES: Estilos comunes de botones.
+       ----------------------------------------------------------------------- */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:600;
+      gap:10px;
+      white-space:nowrap;
+    }
+    .btn:hover{background: rgba(255,255,255,.10)}
+
+    /* EN: Primary gradient button; ES: Botón primario con degradado. */
+    .btn.primary{
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #06101d;
+      box-shadow: 0 14px 28px rgba(74,163,255,.20);
+    }
+
+    /* EN: Emergency “danger” button; ES: Botón de emergencia “peligro”. */
+    .btn.danger{
+      border:1px solid rgba(255,77,94,.35);
+      background: rgba(255,77,94,.10);
+      color: #ffd7db;
+    }
+
+    /* =======================================================================
+       MOBILE MENU
+       EN: Hamburger appears on small screens.
+       ES: El menú hamburguesa aparece en pantallas pequeñas.
+       ======================================================================= */
+    .hamburger{
+      display:none;
+      width:44px; height:44px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      align-items:center; justify-content:center;
+      cursor:pointer;
+    }
+    .hamburger:active{transform: scale(.98)}
+
+    /* EN: Hidden panel that opens under the top bar on mobile.
+       ES: Panel oculto que se abre debajo de la barra superior en móvil. */
+    .mobilePanel{display:none; padding:0 0 12px 0;}
+    .mobilePanel .stack{display:grid; gap:8px; padding: 0 0 8px 0;}
+    .mobilePanel a{
+      text-decoration:none;
+      padding:12px 12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+    }
+    .mobilePanel a:hover{color:var(--text); background: rgba(255,255,255,.08)}
+    .mobilePanel .btn{width:100%}
+
+    /* =======================================================================
+       HERO
+       EN: Top section with headline + quick actions.
+       ES: Sección superior con titular + acciones rápidas.
+       ======================================================================= */
+    header.hero{padding: 34px 0 18px 0;}
+
+    /* EN: Two-column layout on desktop; ES: Dos columnas en escritorio. */
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items:stretch;
+    }
+
+    /* EN: Main hero card; ES: Tarjeta principal del hero. */
+    .heroCard{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      padding: 20px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    /* EN: Decorative glow blob behind hero content.
+       ES: Brillo decorativo detrás del contenido. */
+    .heroCard:before{
+      content:"";
+      position:absolute;
+      inset:-120px -140px auto auto;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle at 30% 30%, rgba(74,163,255,.55), transparent 60%),
+                  radial-gradient(circle at 65% 65%, rgba(47,224,179,.45), transparent 60%);
+      transform: rotate(12deg);
+      opacity:.55;
+      pointer-events:none;
+    }
+
+    /* EN: Responsive font size with clamp(); ES: Tamaño responsivo con clamp(). */
+    h1{
+      margin: 0 0 10px 0;
+      font-size: clamp(26px, 3.5vw, 44px);
+      letter-spacing: -.6px;
+      line-height: 1.12;
+    }
+    .sub{
+      margin: 0 0 16px 0;
+      color: var(--muted);
+      max-width: 62ch;
+      font-size: 15px;
+    }
+
+    /* EN: Small highlight “pills”; ES: Pastillas de resaltado. */
+    .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin: 12px 0 0}
+    .pill{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    /* EN: Hero buttons row; ES: Fila de botones del hero. */
+    .heroActions{display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px}
+    .heroActions .btn{padding:12px 14px}
+
+    /* EN: Side info card; ES: Tarjeta lateral de información. */
+    .sideCard{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(17,26,46,.85), rgba(15,23,48,.75));
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .sideCard h2{margin:0 0 10px 0; font-size: 16px; letter-spacing: .2px;}
+
+    /* EN: List of benefits; ES: Lista de beneficios. */
+    .kv{display:grid; grid-template-columns: 1fr; gap:10px; margin-top: 10px;}
+    .kv .item{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 12px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* EN: Gradient bullet dot; ES: Punto con degradado. */
+    .dot{
+      width:10px; height:10px; border-radius:99px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      margin-top: 5px;
+      flex: 0 0 auto;
+    }
+    .item b{display:block; font-size: 13px}
+    .item span{display:block; color:var(--muted); font-size: 12px; margin-top:2px}
+
+    /* =======================================================================
+       SERVICE TILES
+       EN: Grid of selectable service tiles.
+       ES: Cuadrícula de “tiles” seleccionables de servicios.
+       ======================================================================= */
+    section.tiles{padding: 14px 0 34px 0;}
+
+    .sectionHead{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 12px;
+      margin: 14px 0 10px;
+    }
+    .sectionHead h2{margin:0; font-size: 18px; letter-spacing: .2px;}
+    .sectionHead p{margin:0; color: var(--muted); font-size: 13px;}
+
+    /* EN: 12-column grid system; ES: Sistema de cuadrícula de 12 columnas. */
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap: 12px;}
+
+    /* EN: Each tile is a button so it can be tapped/clicked and accessible.
+       ES: Cada tile es un botón para ser clicable y accesible. */
+    .tile{
+      grid-column: span 4; /* EN: 3 tiles per row on desktop; ES: 3 por fila en escritorio */
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius: 18px;
+      padding: 14px;
+      cursor:pointer;
+      text-align:left;
+      color: var(--text);
+      position:relative;
+      overflow:hidden;
+      min-height: 120px;
+    }
+
+    /* EN: Hover lift effect; ES: Efecto de elevación al pasar el mouse. */
+    .tile:hover{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      transform: translateY(-1px);
+      transition: transform .12s ease, background .12s ease;
+    }
+
+    /* EN: Icon box; ES: Caja de icono. */
+    .tile .icon{
+      width:42px; height:42px; border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      display:flex; align-items:center; justify-content:center;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .tile h3{margin:0 0 6px 0; font-size: 15px}
+    .tile p{margin:0; color: var(--muted); font-size: 13px}
+
+    /* EN: Sub-label at bottom of tile; ES: Sub-etiqueta al final del tile. */
+    .tile small{
+      display:inline-flex;
+      margin-top: 10px;
+      color: rgba(233,238,251,.9);
+      font-weight:600;
+      gap:8px;
+      align-items:center;
+    }
+
+    /* =======================================================================
+       TWO-COLUMN SECTION + CONTACT FORM
+       EN: Commercial/Residential boxes + quote form and contact info.
+       ES: Cajas Comercial/Residencial + formulario y contacto.
+       ======================================================================= */
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 0 0 38px 0;
+    }
+
+    .panel{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      padding: 16px;
+    }
+    .panel h2{margin:0 0 10px 0; font-size: 16px}
+    .panel p{margin:0 0 12px 0; color: var(--muted); font-size: 13px}
+
+    /* EN: Form layout; ES: Diseño del formulario. */
+    form{display:grid; gap: 10px;}
+
+    /* EN: Two-up inputs on larger screens; ES: Dos campos por fila en pantallas grandes. */
+    .row2{display:grid; grid-template-columns: 1fr 1fr; gap: 10px;}
+
+    label{display:grid; gap: 6px; font-size: 12px; color: var(--muted);}
+
+    /* EN: Inputs match the dark theme; ES: Inputs en tema oscuro. */
+    input, select, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(7,11,20,.35);
+      color: var(--text);
+      outline:none;
+    }
+
+    /* EN: Focus outline for accessibility; ES: Enfoque visible (accesibilidad). */
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(74,163,255,.55);
+      box-shadow: 0 0 0 4px rgba(74,163,255,.12);
+    }
+
+    textarea{min-height: 92px; resize: vertical}
+
+    /* EN: Small helper text; ES: Texto auxiliar pequeño. */
+    .fineprint{font-size: 12px; color: var(--muted); margin-top: 8px;}
+
+    /* =======================================================================
+       FOOTER
+       EN: Basic footer with links + emergency callout.
+       ES: Pie de página con enlaces + aviso de emergencia.
+       ======================================================================= */
+    footer{
+      border-top: 1px solid var(--line);
+      padding: 18px 0 34px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .footGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+      align-items:start;
+    }
+    .footGrid b{color: var(--text)}
+    .footLinks{display:flex; gap:10px; flex-wrap:wrap}
+    .footLinks a{
+      color: var(--muted);
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03)
+    }
+    .footLinks a:hover{color: var(--text); background: rgba(255,255,255,.06)}
+
+    /* =======================================================================
+       STICKY MOBILE CTA
+       EN: On small screens, show a fixed “call/quote” bar at the bottom.
+       ES: En móvil, mostrar barra fija inferior “llamar/cotizar”.
+       ======================================================================= */
+    .stickyCall{
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      display:none;
+      gap: 10px;
+      z-index: 60;
+    }
+    .stickyCall .btn{
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    /* =======================================================================
+       RESPONSIVE BREAKPOINTS
+       EN: Adjust layout for tablets + phones.
+       ES: Ajustes responsivos para tablets + teléfonos.
+       ======================================================================= */
+    @media (max-width: 900px){
+      .heroGrid{grid-template-columns: 1fr}     /* EN: stack hero; ES: apilar hero */
+      .split{grid-template-columns: 1fr}        /* EN: stack panels; ES: apilar paneles */
+      .tile{grid-column: span 6}                /* EN: 2 tiles per row; ES: 2 por fila */
+      .footGrid{grid-template-columns: 1fr}
+    }
+
+    @media (max-width: 680px){
+      .navlinks, .ctaRow{display:none}          /* EN: hide desktop nav/cta; ES: ocultar nav/cta */
+      .hamburger{display:inline-flex}           /* EN: show hamburger; ES: mostrar hamburguesa */
+      .tile{grid-column: span 12}               /* EN: 1 tile per row; ES: 1 por fila */
+      .row2{grid-template-columns: 1fr}         /* EN: form fields stack; ES: campos en columna */
+      .stickyCall{display:flex}                 /* EN: show sticky CTA; ES: mostrar CTA fijo */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- =======================================================================
+       TOPBAR
+       EN: Sticky bar with brand, nav links, and CTA buttons.
+       ES: Barra fija con marca, enlaces y botones CTA.
+       ======================================================================= -->
+  <div class="topbar">
+    <div class="container">
+      <div class="nav">
+        <!--
+          EN: Brand area links back to the top of the page.
+          ES: Área de marca enlaza al inicio de la página.
+        -->
+        <a class="brand" href="#top" aria-label="Home">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <b>JD The Plumber LLC</b>
+            <small>Commercial & Residential Plumbing</small>
+          </div>
+        </a>
+
+        <!--
+          EN: Desktop nav links.
+          ES: Enlaces de navegación (escritorio).
+        -->
+        <nav class="navlinks" aria-label="Primary navigation">
+          <a href="#services">Services</a>
+          <a href="#commercial">Commercial</a>
+          <a href="#residential">Residential</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <!--
+          EN: Desktop call-to-action buttons.
+          ES: Botones CTA para escritorio.
+        -->
+        <div class="ctaRow">
+          <!-- EN: tel: link triggers a phone dialer on mobile devices.
+               ES: tel: abre el marcador del teléfono en móviles. -->
+          <a class="btn danger" href="tel:+14079677764" aria-label="Call for emergency plumbing">
+            🚨 Emergency Call
+          </a>
+
+          <a class="btn primary" href="#contact">Get a Quote</a>
+        </div>
+
+        <!--
+          EN: Hamburger button only visible on small screens.
+          ES: Botón hamburguesa solo visible en pantallas pequeñas.
+        -->
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          ☰
+        </button>
+      </div>
+
+      <!--
+        EN: Mobile menu panel (hidden by default; toggled with JS).
+        ES: Panel del menú móvil (oculto; se alterna con JS).
+      -->
+      <div class="mobilePanel" id="mobilePanel" aria-label="Mobile menu">
+        <div class="stack">
+          <a href="#services">Services</a>
+          <a href="#commercial">Commercial</a>
+          <a href="#residential">Residential</a>
+          <a href="#contact">Contact</a>
+
+          <a class="btn danger" href="tel:+14079677764">🚨 Emergency Call</a>
+          <a class="btn primary" href="#contact">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       HERO
+       EN: Primary marketing message + quick buttons + highlights.
+       ES: Mensaje principal + botones rápidos + beneficios.
+       ======================================================================= -->
+  <header class="container hero" id="top">
+    <div class="heroGrid">
+
+      <!-- EN: Main hero content. ES: Contenido principal. -->
+      <div class="heroCard">
+        <h1>Fast, clean plumbing work—done right the first time.</h1>
+
+        <p class="sub">
+          <!-- EN: What you do + who you serve.
+               ES: Qué haces + a quién atiendes. -->
+          JD The Plumber LLC handles residential service calls and commercial plumbing needs:
+          repairs, installs, water heaters, drain & sewer, leak detection, and preventative maintenance.
+        </p>
+
+        <div class="heroActions">
+          <a class="btn primary" href="#services">Browse Services</a>
+
+          <!-- EN: Phone link. ES: Enlace telefónico. -->
+          <a class="btn" href="tel:+14079677764">Call (407) 967-7764</a>
+
+          <a class="btn" href="#contact">Schedule Service</a>
+        </div>
+
+        <!-- EN: Small credibility + positioning statements.
+             ES: Frases cortas de credibilidad + posicionamiento. -->
+        <div class="pillRow" aria-label="Highlights">
+          <span class="pill">Licensed & insured</span>
+          <span class="pill">Upfront pricing</span>
+          <span class="pill">Same-day options</span>
+          <span class="pill">Commercial contracts</span>
+          <span class="pill">Emergency service</span>
+        </div>
+      </div>
+
+      <!-- EN: Secondary card with value points; ES: Tarjeta secundaria con valor. -->
+      <aside class="sideCard" aria-label="Quick info">
+        <h2>What you get</h2>
+
+        <div class="kv">
+          <div class="item">
+            <div class="dot" aria-hidden="true"></div>
+            <div>
+              <b>Real communication</b>
+              <span>We confirm arrival windows and keep you updated.</span>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="dot" aria-hidden="true"></div>
+            <div>
+              <b>Professional worksite</b>
+              <span>Shoe covers, clean up, and respect for your property.</span>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="dot" aria-hidden="true"></div>
+            <div>
+              <b>Commercial-ready</b>
+              <span>Maintenance plans and rapid response for businesses.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- EN: Contact email. ES: Correo de contacto. -->
+        <p class="fineprint">
+          Email: <b><a href="mailto:jdplumberusa@gmail.com">jdplumberusa@gmail.com</a></b>
+        </p>
+      </aside>
+    </div>
+  </header>
+
+  <!-- =======================================================================
+       SERVICES (TILES)
+       EN: Tap a tile to preselect the service in the form.
+       ES: Toca un tile para preseleccionar el servicio en el formulario.
+       ======================================================================= -->
+  <section class="container tiles" id="services">
+    <div class="sectionHead">
+      <div>
+        <h2>Select a service</h2>
+        <p>Tap a tile to jump to the quote form with that service pre-selected.</p>
+      </div>
+      <p><a class="btn" href="#contact">Or request a custom quote →</a></p>
+    </div>
+
+    <!--
+      EN: Each tile is a <button> with a data-service attribute.
+          JS reads data-service and sets the dropdown.
+      ES: Cada tile es un <button> con atributo data-service.
+          JS lee data-service y ajusta el desplegable.
+    -->
+    <div class="grid" role="list">
+      <button class="tile" role="listitem" data-service="Emergency Plumbing">
+        <div class="icon" aria-hidden="true">🚨</div>
+        <h3>Emergency Plumbing</h3>
+        <p>Burst pipes, backups, active leaks—call now.</p>
+        <small>Choose this service →</small>
+      </button>
+
+      <button class="tile" role="listitem" data-service="Drain Cleaning & Clogs">
+        <div class="icon" aria-hidden="true">🌀</div>
+        <h3>Drain Cleaning</h3>
+        <p>Kitchen, bath, main line clogs and slow drains.</p>
+        <small>Choose this service →</small>
+      </button>
+
+      <button class="tile" role="listitem" data-service="Leak Detection & Repair">
+        <div class="icon" aria-hidden="true">💧</div>
+        <h3>Leak Detection</h3>
+        <p>Slab leaks, hidden leaks, pressure issues.</p>
+        <small>Choose this service →</small>
+      </button>
+
+      <button class="tile" role="listitem" data-service="Water Heater Repair/Install">
+        <div class="icon" aria-hidden="true">♨️</div>
+        <h3>Water Heaters</h3>
+        <p>Repair, replacement, tankless installs.</p>
+        <small>Choose this service →</small>
+      </button>
+
+      <button class="tile" role="listitem" data-service="Sewer & Main Line">
+        <div class="icon" aria-hidden="true">🧰</div>
+        <h3>Sewer & Main Line</h3>
+        <p>Camera inspections, root issues, repairs.</p>
+        <small>Choose this service →</small>
+      </button>
+
+      <button class="tile" role="listitem" data-service="Fixture Install/Repair">
+        <div class="icon" aria-hidden="true">🚿</div>
+        <h3>Fixtures</h3>
+        <p>Faucets, toilets, disposals, showers, valves.</p>
+        <small>Choose this service →</small>
+      </button>
+
+      <button class="tile" role="listitem" data-service="Commercial Maintenance Plan">
+        <div class="icon" aria-hidden="true">🏢</div>
+        <h3>Commercial Maintenance</h3>
+        <p>Preventative plans + priority response.</p>
+        <small>Choose this service →</small>
+      </button>
+
+      <button class="tile" role="listitem" data-service="New Install / Remodel Plumbing">
+        <div class="icon" aria-hidden="true">🛠️</div>
+        <h3>Remodel / New Install</h3>
+        <p>Bathrooms, kitchens, additions, repipes.</p>
+        <small>Choose this service →</small>
+      </button>
+
+      <button class="tile" role="listitem" data-service="Backflow / Compliance">
+        <div class="icon" aria-hidden="true">✅</div>
+        <h3>Backflow / Compliance</h3>
+        <p>Testing, repairs, and documentation.</p>
+        <small>Choose this service →</small>
+      </button>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       COMMERCIAL / RESIDENTIAL SUMMARY
+       EN: Two panels describing service types.
+       ES: Dos paneles describiendo tipos de servicio.
+       ======================================================================= -->
+  <section class="container" style="padding-bottom: 10px;">
+    <div class="split">
+      <div class="panel" id="commercial">
+        <h2>Commercial Plumbing</h2>
+        <p>
+          Businesses need reliability. We support offices, retail, restaurants, multi-unit buildings,
+          and property managers with maintenance plans and fast response.
+        </p>
+        <ul style="margin:0; padding-left: 18px; color: var(--muted); font-size: 13px;">
+          <li>Preventative maintenance & inspections</li>
+          <li>Backflow compliance & documentation</li>
+          <li>After-hours service options</li>
+          <li>Service logs for property managers</li>
+        </ul>
+      </div>
+
+      <div class="panel" id="residential">
+        <h2>Residential Plumbing</h2>
+        <p>
+          Clean workmanship, clear pricing, and respectful service in your home.
+          From clogs and leaks to water heater installs—we’ve got it.
+        </p>
+        <ul style="margin:0; padding-left: 18px; color: var(--muted); font-size: 13px;">
+          <li>Drain & sewer service</li>
+          <li>Fixture installs and repairs</li>
+          <li>Leak detection & pipe repair</li>
+          <li>Water heaters (tank / tankless)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       CONTACT / QUOTE FORM
+       EN: The form is mailto-based by default.
+           That means it opens the visitor's email app to send the details.
+       ES: El formulario usa mailto por defecto.
+           Eso abre el correo del visitante para enviar los detalles.
+       ======================================================================= -->
+  <section class="container" id="contact" style="padding-bottom: 48px;">
+    <div class="split">
+      <div class="panel">
+        <h2>Request a quote / schedule service</h2>
+        <p>Fill this out and we’ll respond ASAP. For emergencies, call immediately.</p>
+
+        <!--
+          EN: mailto form (no server needed, but depends on the visitor having an email app).
+          ES: formulario mailto (sin servidor, pero depende de que el visitante tenga correo configurado).
+        -->
+        <form id="quoteForm"
+              action="mailto:jdplumberusa@gmail.com"
+              method="post"
+              enctype="text/plain">
+
+          <div class="row2">
+            <label>
+              Name / Nombre
+              <input name="Name" autocomplete="name" required placeholder="Your name / Tu nombre" />
+            </label>
+
+            <label>
+              Phone / Teléfono
+              <input name="Phone" autocomplete="tel" required placeholder="(407) 967-7764" />
+            </label>
+          </div>
+
+          <div class="row2">
+            <label>
+              Email / Correo
+              <input type="email" name="Email" autocomplete="email" placeholder="you@domain.com" />
+            </label>
+
+            <label>
+              Property Type / Tipo de propiedad
+              <select name="Property Type" required>
+                <option value="" selected disabled>Select… / Selecciona…</option>
+                <option>Residential / Residencial</option>
+                <option>Commercial / Comercial</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Service Needed / Servicio
+            <select name="Service" id="serviceSelect" required>
+              <option value="" selected disabled>Select a service… / Selecciona un servicio…</option>
+              <option>Emergency Plumbing</option>
+              <option>Drain Cleaning & Clogs</option>
+              <option>Leak Detection & Repair</option>
+              <option>Water Heater Repair/Install</option>
+              <option>Sewer & Main Line</option>
+              <option>Fixture Install/Repair</option>
+              <option>Commercial Maintenance Plan</option>
+              <option>New Install / Remodel Plumbing</option>
+              <option>Backflow / Compliance</option>
+              <option>Other / Not Sure</option>
+            </select>
+          </label>
+
+          <label>
+            Details / Detalles
+            <textarea name="Details" placeholder="What’s going on? / ¿Qué está pasando?"></textarea>
+          </label>
+
+          <div class="row2">
+            <label>
+              Address / Dirección
+              <input name="Address" autocomplete="street-address" placeholder="Street / City (optional) / Calle / Ciudad (opcional)" />
+            </label>
+
+            <label>
+              Preferred timeframe / Preferencia de tiempo
+              <select name="Timeframe">
+                <option>ASAP</option>
+                <option>Today / Hoy</option>
+                <option>This week / Esta semana</option>
+                <option>Next week / Próxima semana</option>
+                <option>Flexible / Flexible</option>
+              </select>
+            </label>
+          </div>
+
+          <button class="btn primary" type="submit">Send Request / Enviar</button>
+
+          <div class="fineprint">
+            Prefer calling? / ¿Prefieres llamar?
+            <a href="tel:+14079677764"><b>(407) 967-7764</b></a>
+          </div>
+        </form>
+
+        <div class="fineprint">
+          EN: This uses mailto (opens email). If you want “real” web form submissions,
+              use a form handler (Formspree/Netlify) or a backend.
+          ES: Esto usa mailto (abre correo). Si quieres envíos “reales” desde la web,
+              usa un servicio de formularios (Formspree/Netlify) o un backend.
+        </div>
+      </div>
+
+      <!-- ===================================================================
+           CONTACT CARD
+           EN: Simple contact info panel.
+           ES: Panel simple de información de contacto.
+           =================================================================== -->
+      <div class="panel">
+        <h2>Contact</h2>
+        <p>Reach us fast—especially for emergencies.</p>
+
+        <div style="display:grid; gap:10px;">
+          <div class="item" style="border-color: var(--line); background: rgba(255,255,255,.04);">
+            <div class="dot" aria-hidden="true"></div>
+            <div>
+              <b>Phone / Teléfono</b>
+              <span><a href="tel:+14079677764">(407) 967-7764</a></span>
+            </div>
+          </div>
+
+          <div class="item" style="border-color: var(--line); background: rgba(255,255,255,.04);">
+            <div class="dot" aria-hidden="true"></div>
+            <div>
+              <b>Email / Correo</b>
+              <span><a href="mailto:jdplumberusa@gmail.com">jdplumberusa@gmail.com</a></span>
+            </div>
+          </div>
+
+          <div class="item" style="border-color: var(--line); background: rgba(255,255,255,.04);">
+            <div class="dot" aria-hidden="true"></div>
+            <div>
+              <b>Hours / Horario</b>
+              <span>Mon–Sat: 8am–6pm • Emergency: 24/7</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn danger" href="tel:+14079677764">🚨 Emergency Call</a>
+          <a class="btn" href="#services">Browse Tiles</a>
+          <a class="btn" href="mailto:jdplumberusa@gmail.com">Email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       FOOTER
+       EN: Footer with quick links and emergency call.
+       ES: Pie con enlaces rápidos y llamada de emergencia.
+       ======================================================================= -->
+  <footer>
+    <div class="container footGrid">
+      <div>
+        <b>JD The Plumber LLC</b><br />
+        <span>Commercial & Residential Plumbing</span>
+
+        <div style="margin-top:10px;" class="footLinks">
+          <a href="#services">Services</a>
+          <a href="#contact">Get a Quote</a>
+          <a href="tel:+14079677764">Call</a>
+          <a href="mailto:jdplumberusa@gmail.com">Email</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="border:1px solid var(--line); border-radius: 16px; padding: 12px; background: rgba(255,255,255,.03);">
+          <b>Emergency? / ¿Emergencia?</b><br />
+          <span>Call / Llama: <a href="tel:+14079677764">(407) 967-7764</a></span>
+        </div>
+
+        <div style="margin-top:10px;">
+          <!-- EN: Year is filled in by JS below. ES: Año se llena con JS abajo. -->
+          <span>© <span id="year"></span> JD The Plumber LLC. All rights reserved.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =======================================================================
+       STICKY MOBILE CTA
+       EN: Bottom fixed buttons for quick actions on mobile.
+       ES: Botones fijos inferiores para acciones rápidas en móvil.
+       ======================================================================= -->
+  <div class="stickyCall" aria-label="Mobile quick actions">
+    <a class="btn danger" href="tel:+14079677764">🚨 Emergency Call</a>
+    <a class="btn primary" href="#contact">Get a Quote</a>
+  </div>
+
+  <script>
+    /* =======================================================================
+       JAVASCRIPT
+       EN: Interactivity for mobile menu, tile selection, and year display.
+       ES: Interactividad para menú móvil, selección de servicios y año.
+       ======================================================================= */
+
+    // -----------------------------------------------------------------------
+    // EN: Mobile menu toggle (hamburger opens/closes the panel).
+    // ES: Alternar menú móvil (hamburguesa abre/cierra el panel).
+    // -----------------------------------------------------------------------
+    const hamburger = document.getElementById('hamburger');
+    const mobilePanel = document.getElementById('mobilePanel');
+
+    hamburger?.addEventListener('click', () => {
+      // EN: Check if panel is currently open.
+      // ES: Revisar si el panel está abierto.
+      const open = mobilePanel.style.display === 'block';
+
+      // EN: Toggle display.
+      // ES: Alternar display.
+      mobilePanel.style.display = open ? 'none' : 'block';
+
+      // EN: Update accessibility attribute.
+      // ES: Actualizar atributo de accesibilidad.
+      hamburger.setAttribute('aria-expanded', String(!open));
+    });
+
+    // -----------------------------------------------------------------------
+    // EN: Set footer year automatically.
+    // ES: Establecer el año del pie automáticamente.
+    // -----------------------------------------------------------------------
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // -----------------------------------------------------------------------
+    // EN: Tile click -> selects the service in the dropdown -> jumps to #contact.
+    // ES: Clic en tile -> selecciona servicio en el desplegable -> salta a #contact.
+    // -----------------------------------------------------------------------
+    const serviceSelect = document.getElementById('serviceSelect');
+
+    document.querySelectorAll('.tile').forEach(tile => {
+      tile.addEventListener('click', () => {
+        // EN: Read service name from the tile.
+        // ES: Leer el nombre del servicio desde el tile.
+        const service = tile.getAttribute('data-service');
+
+        if (serviceSelect) {
+          // EN: If that option exists, select it; else default to "Other / Not Sure".
+          // ES: Si existe la opción, seleccionarla; si no, usar "Other / Not Sure".
+          const opts = Array.from(serviceSelect.options).map(o => o.value);
+          serviceSelect.value = opts.includes(service) ? service : "Other / Not Sure";
+        }
+
+        // EN: Jump/scroll to the contact section.
+        // ES: Saltar/desplazar a la sección de contacto.
+        window.location.hash = '#contact';
+
+        // EN: On mobile, close the mobile menu if it was open.
+        // ES: En móvil, cerrar el menú si estaba abierto.
+        if (window.innerWidth <= 680) {
+          mobilePanel.style.display = 'none';
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // -----------------------------------------------------------------------
+    // EN: Close mobile menu when clicking a mobile menu anchor link (#...).
+    // ES: Cerrar el menú móvil al tocar un enlace del menú (#...).
+    // -----------------------------------------------------------------------
+    document.querySelectorAll('#mobilePanel a[href^="#"]').forEach(a => {
+      a.addEventListener('click', () => {
+        mobilePanel.style.display = 'none';
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+</body>
+</html>
