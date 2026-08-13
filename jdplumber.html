@@ -1,96 +1,129 @@
+Pasted text(20260813-014742).txt
+Document
+
+Done. I removed the Spanish from the visible webpage text and the bilingual comments while preserving the HTML, CSS, JavaScript, links, phone number, email, form behavior, and overall design. The original file contained bilingual English/Spanish labels and comments throughout.
+
+Download the English-only HTML file 
+
+JD_The_Plumber_English_Only.html
+HTML
+why is the background so dark
+
+The background is dark because the original HTML was intentionally designed with a dark theme. I didn't change the design when removing the Spanish.
+
+Specifically, your CSS defines:
+
+--bg:#0b1220;
+--text:#e9eefb;
+
+and the page background uses an even darker base:
+
+body {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(74,163,255,.25), transparent 60%),
+    radial-gradient(900px 500px at 90% 0%, rgba(47,224,179,.20), transparent 60%),
+    linear-gradient(180deg, #070b14, var(--bg));
+}
+
+So #070b14 and #0b1220 are essentially very dark navy/black. The cards are also translucent dark colors. That design was already present in your original code.
+
+For a plumbing business, I think a lighter, cleaner professional design would work better—white/light gray background with blue accents, while keeping the existing layout and functionality.
+
+I can change the HTML I just created to a professional light theme without changing the content or functionality.
+
+yes please
+
+Done. I converted the site to a clean professional light theme while keeping the existing layout, English-only content, forms, buttons, and functionality.
+
+The new design uses a white/light-gray background with blue and teal accents and darker text for readability.
+
+Download the light-theme HTML 
+
 <!doctype html>
 <html lang="en">
 <head>
   <!--
-    EN: Basic document metadata (charset + responsive layout).
-    ES: Metadatos básicos del documento (charset + diseño responsivo).
+    Basic document metadata (charset + responsive layout).
   -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!--
-    EN: Page title shown in the browser tab + used by search engines.
-    ES: Título de la página que aparece en la pestaña + usado por buscadores.
+    Page title shown in the browser tab + used by search engines.
   -->
   <title>JD The Plumber LLC | Commercial & Residential Plumbing</title>
 
   <!--
-    EN: Short description for SEO and sharing previews.
-    ES: Descripción corta para SEO y vistas previas al compartir.
+    Short description for SEO and sharing previews.
   -->
   <meta name="description" content="JD The Plumber LLC provides commercial and residential plumbing services: repairs, installs, water heaters, drain cleaning, leak detection, and emergency service." />
 
   <style>
     /* =======================================================================
-       EN: CSS variables (theme colors, shadows, spacing).
-       ES: Variables CSS (colores del tema, sombras, espaciado).
+       CSS variables (theme colors, shadows, spacing).
        ======================================================================= */
     :root{
-      --bg:#0b1220;
-      --text:#e9eefb;
-      --muted:#b9c3dd;
-      --line:rgba(255,255,255,.10);
+      --bg:#f4f7fb;
+      --text:#172033;
+      --muted:#5f6b7a;
+      --line:rgba(23,32,51,.12);
       --accent:#4aa3ff;
       --accent2:#2fe0b3;
       --danger:#ff4d5e;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --shadow: 0 10px 30px rgba(31,45,61,.10);
       --radius:18px;
     }
 
-    /* EN: Use border-box for predictable sizing. ES: Caja consistente. */
+    /* Use border-box for predictable sizing.*/
     *{box-sizing:border-box}
     html,body{height:100%}
 
     /* -----------------------------------------------------------------------
-       EN: Global body styling (background gradients + typography).
-       ES: Estilos globales del body (degradados + tipografía).
+       Global body styling (background gradients + typography).
        ----------------------------------------------------------------------- */
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(74,163,255,.25), transparent 60%),
-        radial-gradient(900px 500px at 90% 0%, rgba(47,224,179,.20), transparent 60%),
-        linear-gradient(180deg, #070b14, var(--bg));
+        radial-gradient(1200px 600px at 10% -10%, rgba(74,163,255,.12), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(47,224,179,.10), transparent 60%),
+        linear-gradient(180deg, #ffffff, var(--bg));
       color:var(--text);
       line-height:1.5;
     }
 
-    /* EN: Keep links inheriting color so the theme stays consistent.
-       ES: Mantener color de enlaces para consistencia visual. */
+    /* Keep links inheriting color so the theme stays consistent.
     a{color:inherit}
 
-    /* EN: Center container with max width; ES: Contenedor centrado con ancho máximo. */
+    /* Center container with max width;*/
     .container{width:min(1100px, 92vw); margin:0 auto}
 
     /* =======================================================================
        TOP BAR / NAVIGATION
-       EN: Sticky navigation bar at the top.
-       ES: Barra de navegación fija (sticky) arriba.
+       Sticky navigation bar at the top.
        ======================================================================= */
     .topbar{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(12px);
-      background: rgba(7,11,20,.65);
+      background: rgba(255,255,255,.92);
       border-bottom:1px solid var(--line);
     }
 
-    /* EN: Nav row layout; ES: Distribución de la fila de navegación. */
+    /* Nav row layout;*/
     .nav{
       display:flex; align-items:center; justify-content:space-between;
       padding:14px 0;
       gap:14px;
     }
 
-    /* EN: Brand (logo + company name). ES: Marca (logo + nombre). */
+    /* Brand (logo + company name).*/
     .brand{
       display:flex; align-items:center; gap:12px;
       text-decoration:none;
       min-width: 240px;
     }
 
-    /* EN: Simple generated logo (no image file needed).
-       ES: Logo generado (sin archivo de imagen). */
+    /* Simple generated logo (no image file needed).
     .logo{
       width:40px; height:40px; border-radius:12px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -98,12 +131,11 @@
       position:relative;
     }
 
-    /* EN: Decorative mark inside the logo.
-       ES: Marca decorativa dentro del logo. */
+    /* Decorative mark inside the logo.
     .logo:after{
       content:"";
       position:absolute; inset:10px 11px 10px 11px;
-      border:2px solid rgba(7,11,20,.65);
+      border:2px solid rgba(255,255,255,.90);
       border-top-color: transparent;
       border-right-color: transparent;
       border-radius:10px;
@@ -113,7 +145,7 @@
     .brand b{display:block; font-size:14px; letter-spacing:.3px}
     .brand small{display:block; color:var(--muted); font-size:12px}
 
-    /* EN: Desktop navigation links; ES: Enlaces de navegación (escritorio). */
+    /* Desktop navigation links;*/
     .navlinks{display:flex; gap:14px; align-items:center}
     .navlinks a{
       text-decoration:none;
@@ -123,30 +155,28 @@
     }
     .navlinks a:hover{color:var(--text); background: rgba(255,255,255,.06)}
 
-    /* EN: Right-side CTA buttons (desktop).
-       ES: Botones de llamada a la acción (escritorio). */
+    /* Right-side CTA buttons (desktop).
     .ctaRow{display:flex; gap:10px; align-items:center}
 
     /* -----------------------------------------------------------------------
        BUTTONS
-       EN: Shared button styles.
-       ES: Estilos comunes de botones.
+       Shared button styles.
        ----------------------------------------------------------------------- */
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       padding:10px 14px;
       border-radius:14px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.06);
+      background: rgba(23,32,51,.04);
       color:var(--text);
       text-decoration:none;
       font-weight:600;
       gap:10px;
       white-space:nowrap;
     }
-    .btn:hover{background: rgba(255,255,255,.10)}
+    .btn:hover{background: rgba(23,32,51,.08)}
 
-    /* EN: Primary gradient button; ES: Botón primario con degradado. */
+    /* Primary gradient button;*/
     .btn.primary{
       border: none;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -154,32 +184,30 @@
       box-shadow: 0 14px 28px rgba(74,163,255,.20);
     }
 
-    /* EN: Emergency “danger” button; ES: Botón de emergencia “peligro”. */
+    /* Emergency “danger” button;*/
     .btn.danger{
       border:1px solid rgba(255,77,94,.35);
-      background: rgba(255,77,94,.10);
-      color: #ffd7db;
+      background: rgba(255,77,94,.07);
+      color: #b42335;
     }
 
     /* =======================================================================
        MOBILE MENU
-       EN: Hamburger appears on small screens.
-       ES: El menú hamburguesa aparece en pantallas pequeñas.
+       Hamburger appears on small screens.
        ======================================================================= */
     .hamburger{
       display:none;
       width:44px; height:44px;
       border-radius:14px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.06);
+      background: rgba(23,32,51,.04);
       color:var(--text);
       align-items:center; justify-content:center;
       cursor:pointer;
     }
     .hamburger:active{transform: scale(.98)}
 
-    /* EN: Hidden panel that opens under the top bar on mobile.
-       ES: Panel oculto que se abre debajo de la barra superior en móvil. */
+    /* Hidden panel that opens under the top bar on mobile.
     .mobilePanel{display:none; padding:0 0 12px 0;}
     .mobilePanel .stack{display:grid; gap:8px; padding: 0 0 8px 0;}
     .mobilePanel a{
@@ -187,20 +215,19 @@
       padding:12px 12px;
       border:1px solid var(--line);
       border-radius:14px;
-      background: rgba(255,255,255,.05);
+      background: rgba(23,32,51,.035);
       color: var(--muted);
     }
-    .mobilePanel a:hover{color:var(--text); background: rgba(255,255,255,.08)}
+    .mobilePanel a:hover{color:var(--text); background: rgba(23,32,51,.06)}
     .mobilePanel .btn{width:100%}
 
     /* =======================================================================
        HERO
-       EN: Top section with headline + quick actions.
-       ES: Sección superior con titular + acciones rápidas.
+       Top section with headline + quick actions.
        ======================================================================= */
     header.hero{padding: 34px 0 18px 0;}
 
-    /* EN: Two-column layout on desktop; ES: Dos columnas en escritorio. */
+    /* Two-column layout on desktop;*/
     .heroGrid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
@@ -208,19 +235,18 @@
       align-items:stretch;
     }
 
-    /* EN: Main hero card; ES: Tarjeta principal del hero. */
+    /* Main hero card;*/
     .heroCard{
       border:1px solid var(--line);
       border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
       box-shadow: var(--shadow);
       padding: 20px;
       overflow:hidden;
       position:relative;
     }
 
-    /* EN: Decorative glow blob behind hero content.
-       ES: Brillo decorativo detrás del contenido. */
+    /* Decorative glow blob behind hero content.
     .heroCard:before{
       content:"";
       position:absolute;
@@ -234,7 +260,7 @@
       pointer-events:none;
     }
 
-    /* EN: Responsive font size with clamp(); ES: Tamaño responsivo con clamp(). */
+    /* Responsive font size with clamp();*/
     h1{
       margin: 0 0 10px 0;
       font-size: clamp(26px, 3.5vw, 44px);
@@ -248,42 +274,42 @@
       font-size: 15px;
     }
 
-    /* EN: Small highlight “pills”; ES: Pastillas de resaltado. */
+    /* Small highlight “pills”;*/
     .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin: 12px 0 0}
     .pill{
       border:1px solid var(--line);
-      background: rgba(255,255,255,.06);
+      background: rgba(23,32,51,.04);
       color: var(--muted);
       padding: 8px 10px;
       border-radius: 999px;
       font-size: 12px;
     }
 
-    /* EN: Hero buttons row; ES: Fila de botones del hero. */
+    /* Hero buttons row;*/
     .heroActions{display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px}
     .heroActions .btn{padding:12px 14px}
 
-    /* EN: Side info card; ES: Tarjeta lateral de información. */
+    /* Side info card;*/
     .sideCard{
       border:1px solid var(--line);
       border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(17,26,46,.85), rgba(15,23,48,.75));
+      background: linear-gradient(180deg, #ffffff, #f2f7fd);
       box-shadow: var(--shadow);
       padding: 18px;
     }
     .sideCard h2{margin:0 0 10px 0; font-size: 16px; letter-spacing: .2px;}
 
-    /* EN: List of benefits; ES: Lista de beneficios. */
+    /* List of benefits;*/
     .kv{display:grid; grid-template-columns: 1fr; gap:10px; margin-top: 10px;}
     .kv .item{
       display:flex; gap:10px; align-items:flex-start;
       padding: 12px;
       border-radius: 16px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
+      background: rgba(23,32,51,.035);
     }
 
-    /* EN: Gradient bullet dot; ES: Punto con degradado. */
+    /* Gradient bullet dot;*/
     .dot{
       width:10px; height:10px; border-radius:99px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -295,8 +321,7 @@
 
     /* =======================================================================
        SERVICE TILES
-       EN: Grid of selectable service tiles.
-       ES: Cuadrícula de “tiles” seleccionables de servicios.
+       Grid of selectable service tiles.
        ======================================================================= */
     section.tiles{padding: 14px 0 34px 0;}
 
@@ -308,15 +333,14 @@
     .sectionHead h2{margin:0; font-size: 18px; letter-spacing: .2px;}
     .sectionHead p{margin:0; color: var(--muted); font-size: 13px;}
 
-    /* EN: 12-column grid system; ES: Sistema de cuadrícula de 12 columnas. */
+    /* 12-column grid system;*/
     .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap: 12px;}
 
-    /* EN: Each tile is a button so it can be tapped/clicked and accessible.
-       ES: Cada tile es un botón para ser clicable y accesible. */
+    /* Each tile is a button so it can be tapped/clicked and accessible.
     .tile{
-      grid-column: span 4; /* EN: 3 tiles per row on desktop; ES: 3 por fila en escritorio */
+      grid-column: span 4; /* 3 tiles per row on desktop;*/
       border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
       border-radius: 18px;
       padding: 14px;
       cursor:pointer;
@@ -327,18 +351,18 @@
       min-height: 120px;
     }
 
-    /* EN: Hover lift effect; ES: Efecto de elevación al pasar el mouse. */
+    /* Hover lift effect;*/
     .tile:hover{
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
       transform: translateY(-1px);
       transition: transform .12s ease, background .12s ease;
     }
 
-    /* EN: Icon box; ES: Caja de icono. */
+    /* Icon box;*/
     .tile .icon{
       width:42px; height:42px; border-radius:16px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.06);
+      background: rgba(23,32,51,.04);
       display:flex; align-items:center; justify-content:center;
       font-size: 18px;
       margin-bottom: 10px;
@@ -346,11 +370,11 @@
     .tile h3{margin:0 0 6px 0; font-size: 15px}
     .tile p{margin:0; color: var(--muted); font-size: 13px}
 
-    /* EN: Sub-label at bottom of tile; ES: Sub-etiqueta al final del tile. */
+    /* Sub-label at bottom of tile;*/
     .tile small{
       display:inline-flex;
       margin-top: 10px;
-      color: rgba(233,238,251,.9);
+      color: rgba(23,32,51,.9);
       font-weight:600;
       gap:8px;
       align-items:center;
@@ -358,8 +382,7 @@
 
     /* =======================================================================
        TWO-COLUMN SECTION + CONTACT FORM
-       EN: Commercial/Residential boxes + quote form and contact info.
-       ES: Cajas Comercial/Residencial + formulario y contacto.
+       Commercial/Residential boxes + quote form and contact info.
        ======================================================================= */
     .split{
       display:grid;
@@ -371,32 +394,32 @@
     .panel{
       border:1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(255,255,255,.04);
+      background: rgba(23,32,51,.035);
       padding: 16px;
     }
     .panel h2{margin:0 0 10px 0; font-size: 16px}
     .panel p{margin:0 0 12px 0; color: var(--muted); font-size: 13px}
 
-    /* EN: Form layout; ES: Diseño del formulario. */
+    /* Form layout;*/
     form{display:grid; gap: 10px;}
 
-    /* EN: Two-up inputs on larger screens; ES: Dos campos por fila en pantallas grandes. */
+    /* Two-up inputs on larger screens;*/
     .row2{display:grid; grid-template-columns: 1fr 1fr; gap: 10px;}
 
     label{display:grid; gap: 6px; font-size: 12px; color: var(--muted);}
 
-    /* EN: Inputs match the dark theme; ES: Inputs en tema oscuro. */
+    /* Inputs match the dark theme;*/
     input, select, textarea{
       width:100%;
       padding: 12px 12px;
       border-radius: 14px;
       border:1px solid var(--line);
-      background: rgba(7,11,20,.35);
+      background: #ffffff;
       color: var(--text);
       outline:none;
     }
 
-    /* EN: Focus outline for accessibility; ES: Enfoque visible (accesibilidad). */
+    /* Focus outline for accessibility;*/
     input:focus, select:focus, textarea:focus{
       border-color: rgba(74,163,255,.55);
       box-shadow: 0 0 0 4px rgba(74,163,255,.12);
@@ -404,13 +427,12 @@
 
     textarea{min-height: 92px; resize: vertical}
 
-    /* EN: Small helper text; ES: Texto auxiliar pequeño. */
+    /* Small helper text;*/
     .fineprint{font-size: 12px; color: var(--muted); margin-top: 8px;}
 
     /* =======================================================================
        FOOTER
-       EN: Basic footer with links + emergency callout.
-       ES: Pie de página con enlaces + aviso de emergencia.
+       Basic footer with links + emergency callout.
        ======================================================================= */
     footer{
       border-top: 1px solid var(--line);
@@ -432,14 +454,13 @@
       padding:8px 10px;
       border-radius:12px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.03)
+      background: rgba(23,32,51,.025)
     }
     .footLinks a:hover{color: var(--text); background: rgba(255,255,255,.06)}
 
     /* =======================================================================
        STICKY MOBILE CTA
-       EN: On small screens, show a fixed “call/quote” bar at the bottom.
-       ES: En móvil, mostrar barra fija inferior “llamar/cotizar”.
+       On small screens, show a fixed “call/quote” bar at the bottom.
        ======================================================================= */
     .stickyCall{
       position: fixed;
@@ -459,22 +480,21 @@
 
     /* =======================================================================
        RESPONSIVE BREAKPOINTS
-       EN: Adjust layout for tablets + phones.
-       ES: Ajustes responsivos para tablets + teléfonos.
+       Adjust layout for tablets + phones.
        ======================================================================= */
     @media (max-width: 900px){
-      .heroGrid{grid-template-columns: 1fr}     /* EN: stack hero; ES: apilar hero */
-      .split{grid-template-columns: 1fr}        /* EN: stack panels; ES: apilar paneles */
-      .tile{grid-column: span 6}                /* EN: 2 tiles per row; ES: 2 por fila */
+      .heroGrid{grid-template-columns: 1fr}     /* stack hero;*/
+      .split{grid-template-columns: 1fr}        /* stack panels;*/
+      .tile{grid-column: span 6}                /* 2 tiles per row;*/
       .footGrid{grid-template-columns: 1fr}
     }
 
     @media (max-width: 680px){
-      .navlinks, .ctaRow{display:none}          /* EN: hide desktop nav/cta; ES: ocultar nav/cta */
-      .hamburger{display:inline-flex}           /* EN: show hamburger; ES: mostrar hamburguesa */
-      .tile{grid-column: span 12}               /* EN: 1 tile per row; ES: 1 por fila */
-      .row2{grid-template-columns: 1fr}         /* EN: form fields stack; ES: campos en columna */
-      .stickyCall{display:flex}                 /* EN: show sticky CTA; ES: mostrar CTA fijo */
+      .navlinks, .ctaRow{display:none}          /* hide desktop nav/cta;*/
+      .hamburger{display:inline-flex}           /* show hamburger;*/
+      .tile{grid-column: span 12}               /* 1 tile per row;*/
+      .row2{grid-template-columns: 1fr}         /* form fields stack;*/
+      .stickyCall{display:flex}                 /* show sticky CTA;*/
     }
   </style>
 </head>
@@ -482,15 +502,13 @@
 <body>
   <!-- =======================================================================
        TOPBAR
-       EN: Sticky bar with brand, nav links, and CTA buttons.
-       ES: Barra fija con marca, enlaces y botones CTA.
+       Sticky bar with brand, nav links, and CTA buttons.
        ======================================================================= -->
   <div class="topbar">
     <div class="container">
       <div class="nav">
         <!--
-          EN: Brand area links back to the top of the page.
-          ES: Área de marca enlaza al inicio de la página.
+          Brand area links back to the top of the page.
         -->
         <a class="brand" href="#top" aria-label="Home">
           <div class="logo" aria-hidden="true"></div>
@@ -501,8 +519,7 @@
         </a>
 
         <!--
-          EN: Desktop nav links.
-          ES: Enlaces de navegación (escritorio).
+          Desktop nav links.
         -->
         <nav class="navlinks" aria-label="Primary navigation">
           <a href="#services">Services</a>
@@ -512,12 +529,10 @@
         </nav>
 
         <!--
-          EN: Desktop call-to-action buttons.
-          ES: Botones CTA para escritorio.
+          Desktop call-to-action buttons.
         -->
         <div class="ctaRow">
-          <!-- EN: tel: link triggers a phone dialer on mobile devices.
-               ES: tel: abre el marcador del teléfono en móviles. -->
+          <!-- tel: link triggers a phone dialer on mobile devices.
           <a class="btn danger" href="tel:+14079677764" aria-label="Call for emergency plumbing">
             🚨 Emergency Call
           </a>
@@ -526,8 +541,7 @@
         </div>
 
         <!--
-          EN: Hamburger button only visible on small screens.
-          ES: Botón hamburguesa solo visible en pantallas pequeñas.
+          Hamburger button only visible on small screens.
         -->
         <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
           ☰
@@ -535,8 +549,7 @@
       </div>
 
       <!--
-        EN: Mobile menu panel (hidden by default; toggled with JS).
-        ES: Panel del menú móvil (oculto; se alterna con JS).
+        Mobile menu panel (hidden by default; toggled with JS).
       -->
       <div class="mobilePanel" id="mobilePanel" aria-label="Mobile menu">
         <div class="stack">
@@ -554,19 +567,17 @@
 
   <!-- =======================================================================
        HERO
-       EN: Primary marketing message + quick buttons + highlights.
-       ES: Mensaje principal + botones rápidos + beneficios.
+       Primary marketing message + quick buttons + highlights.
        ======================================================================= -->
   <header class="container hero" id="top">
     <div class="heroGrid">
 
-      <!-- EN: Main hero content. ES: Contenido principal. -->
+      <!-- Main hero content.-->
       <div class="heroCard">
         <h1>Fast, clean plumbing work—done right the first time.</h1>
 
         <p class="sub">
-          <!-- EN: What you do + who you serve.
-               ES: Qué haces + a quién atiendes. -->
+          <!-- What you do + who you serve.
           JD The Plumber LLC handles residential service calls and commercial plumbing needs:
           repairs, installs, water heaters, drain & sewer, leak detection, and preventative maintenance.
         </p>
@@ -574,14 +585,13 @@
         <div class="heroActions">
           <a class="btn primary" href="#services">Browse Services</a>
 
-          <!-- EN: Phone link. ES: Enlace telefónico. -->
+          <!-- Phone link.-->
           <a class="btn" href="tel:+14079677764">Call (407) 967-7764</a>
 
           <a class="btn" href="#contact">Schedule Service</a>
         </div>
 
-        <!-- EN: Small credibility + positioning statements.
-             ES: Frases cortas de credibilidad + posicionamiento. -->
+        <!-- Small credibility + positioning statements.
         <div class="pillRow" aria-label="Highlights">
           <span class="pill">Licensed & insured</span>
           <span class="pill">Upfront pricing</span>
@@ -591,7 +601,7 @@
         </div>
       </div>
 
-      <!-- EN: Secondary card with value points; ES: Tarjeta secundaria con valor. -->
+      <!-- Secondary card with value points;-->
       <aside class="sideCard" aria-label="Quick info">
         <h2>What you get</h2>
 
@@ -621,7 +631,7 @@
           </div>
         </div>
 
-        <!-- EN: Contact email. ES: Correo de contacto. -->
+        <!-- Contact email.-->
         <p class="fineprint">
           Email: <b><a href="mailto:jdplumberusa@gmail.com">jdplumberusa@gmail.com</a></b>
         </p>
@@ -631,8 +641,7 @@
 
   <!-- =======================================================================
        SERVICES (TILES)
-       EN: Tap a tile to preselect the service in the form.
-       ES: Toca un tile para preseleccionar el servicio en el formulario.
+       Tap a tile to preselect the service in the form.
        ======================================================================= -->
   <section class="container tiles" id="services">
     <div class="sectionHead">
@@ -644,9 +653,8 @@
     </div>
 
     <!--
-      EN: Each tile is a <button> with a data-service attribute.
+      Each tile is a <button> with a data-service attribute.
           JS reads data-service and sets the dropdown.
-      ES: Cada tile es un <button> con atributo data-service.
           JS lee data-service y ajusta el desplegable.
     -->
     <div class="grid" role="list">
@@ -717,8 +725,7 @@
 
   <!-- =======================================================================
        COMMERCIAL / RESIDENTIAL SUMMARY
-       EN: Two panels describing service types.
-       ES: Dos paneles describiendo tipos de servicio.
+       Two panels describing service types.
        ======================================================================= -->
   <section class="container" style="padding-bottom: 10px;">
     <div class="split">
@@ -754,10 +761,8 @@
 
   <!-- =======================================================================
        CONTACT / QUOTE FORM
-       EN: The form is mailto-based by default.
+       The form is mailto-based by default.
            That means it opens the visitor's email app to send the details.
-       ES: El formulario usa mailto por defecto.
-           Eso abre el correo del visitante para enviar los detalles.
        ======================================================================= -->
   <section class="container" id="contact" style="padding-bottom: 48px;">
     <div class="split">
@@ -766,8 +771,7 @@
         <p>Fill this out and we’ll respond ASAP. For emergencies, call immediately.</p>
 
         <!--
-          EN: mailto form (no server needed, but depends on the visitor having an email app).
-          ES: formulario mailto (sin servidor, pero depende de que el visitante tenga correo configurado).
+          mailto form (no server needed, but depends on the visitor having an email app).
         -->
         <form id="quoteForm"
               action="mailto:jdplumberusa@gmail.com"
@@ -776,36 +780,36 @@
 
           <div class="row2">
             <label>
-              Name / Nombre
-              <input name="Name" autocomplete="name" required placeholder="Your name / Tu nombre" />
+              Name
+              <input name="Name" autocomplete="name" required placeholder="Your name" />
             </label>
 
             <label>
-              Phone / Teléfono
+              Phone
               <input name="Phone" autocomplete="tel" required placeholder="(407) 967-7764" />
             </label>
           </div>
 
           <div class="row2">
             <label>
-              Email / Correo
+              Email
               <input type="email" name="Email" autocomplete="email" placeholder="you@domain.com" />
             </label>
 
             <label>
-              Property Type / Tipo de propiedad
+              Property Type
               <select name="Property Type" required>
-                <option value="" selected disabled>Select… / Selecciona…</option>
-                <option>Residential / Residencial</option>
-                <option>Commercial / Comercial</option>
+                <option value="" selected disabled>Select…</option>
+                <option>Residential</option>
+                <option>Commercial</option>
               </select>
             </label>
           </div>
 
           <label>
-            Service Needed / Servicio
+            Service Needed
             <select name="Service" id="serviceSelect" required>
-              <option value="" selected disabled>Select a service… / Selecciona un servicio…</option>
+              <option value="" selected disabled>Select a service…</option>
               <option>Emergency Plumbing</option>
               <option>Drain Cleaning & Clogs</option>
               <option>Leak Detection & Repair</option>
@@ -820,74 +824,72 @@
           </label>
 
           <label>
-            Details / Detalles
-            <textarea name="Details" placeholder="What’s going on? / ¿Qué está pasando?"></textarea>
+            Details
+            <textarea name="Details" placeholder="What’s going on?"></textarea>
           </label>
 
           <div class="row2">
             <label>
-              Address / Dirección
-              <input name="Address" autocomplete="street-address" placeholder="Street / City (optional) / Calle / Ciudad (opcional)" />
+              Address
+              <input name="Address" autocomplete="street-address" placeholder="Street / City (optional)" />
             </label>
 
             <label>
-              Preferred timeframe / Preferencia de tiempo
+              Preferred timeframe
               <select name="Timeframe">
                 <option>ASAP</option>
-                <option>Today / Hoy</option>
-                <option>This week / Esta semana</option>
-                <option>Next week / Próxima semana</option>
-                <option>Flexible / Flexible</option>
+                <option>Today</option>
+                <option>This week</option>
+                <option>Next week</option>
+                <option>Flexible</option>
               </select>
             </label>
           </div>
 
-          <button class="btn primary" type="submit">Send Request / Enviar</button>
+          <button class="btn primary" type="submit">Send Request</button>
 
           <div class="fineprint">
-            Prefer calling? / ¿Prefieres llamar?
+            Prefer calling?
             <a href="tel:+14079677764"><b>(407) 967-7764</b></a>
           </div>
         </form>
 
         <div class="fineprint">
-          EN: This uses mailto (opens email). If you want “real” web form submissions,
+          This uses mailto (opens email). If you want “real” web form submissions,
               use a form handler (Formspree/Netlify) or a backend.
-          ES: Esto usa mailto (abre correo). Si quieres envíos “reales” desde la web,
-              usa un servicio de formularios (Formspree/Netlify) o un backend.
+usa un servicio de formularios (Formspree/Netlify) o un backend.
         </div>
       </div>
 
       <!-- ===================================================================
            CONTACT CARD
-           EN: Simple contact info panel.
-           ES: Panel simple de información de contacto.
+           Simple contact info panel.
            =================================================================== -->
       <div class="panel">
         <h2>Contact</h2>
         <p>Reach us fast—especially for emergencies.</p>
 
         <div style="display:grid; gap:10px;">
-          <div class="item" style="border-color: var(--line); background: rgba(255,255,255,.04);">
+          <div class="item" style="border-color: var(--line); background: rgba(23,32,51,.035);">
             <div class="dot" aria-hidden="true"></div>
             <div>
-              <b>Phone / Teléfono</b>
+              <b>Phone</b>
               <span><a href="tel:+14079677764">(407) 967-7764</a></span>
             </div>
           </div>
 
-          <div class="item" style="border-color: var(--line); background: rgba(255,255,255,.04);">
+          <div class="item" style="border-color: var(--line); background: rgba(23,32,51,.035);">
             <div class="dot" aria-hidden="true"></div>
             <div>
-              <b>Email / Correo</b>
+              <b>Email</b>
               <span><a href="mailto:jdplumberusa@gmail.com">jdplumberusa@gmail.com</a></span>
             </div>
           </div>
 
-          <div class="item" style="border-color: var(--line); background: rgba(255,255,255,.04);">
+          <div class="item" style="border-color: var(--line); background: rgba(23,32,51,.035);">
             <div class="dot" aria-hidden="true"></div>
             <div>
-              <b>Hours / Horario</b>
+              <b>Hours</b>
               <span>Mon–Sat: 8am–6pm • Emergency: 24/7</span>
             </div>
           </div>
@@ -904,8 +906,7 @@
 
   <!-- =======================================================================
        FOOTER
-       EN: Footer with quick links and emergency call.
-       ES: Pie con enlaces rápidos y llamada de emergencia.
+       Footer with quick links and emergency call.
        ======================================================================= -->
   <footer>
     <div class="container footGrid">
@@ -922,13 +923,13 @@
       </div>
 
       <div>
-        <div style="border:1px solid var(--line); border-radius: 16px; padding: 12px; background: rgba(255,255,255,.03);">
-          <b>Emergency? / ¿Emergencia?</b><br />
-          <span>Call / Llama: <a href="tel:+14079677764">(407) 967-7764</a></span>
+        <div style="border:1px solid var(--line); border-radius: 16px; padding: 12px; background: rgba(23,32,51,.025);">
+          <b>Emergency?</b><br />
+          <span>Call: <a href="tel:+14079677764">(407) 967-7764</a></span>
         </div>
 
         <div style="margin-top:10px;">
-          <!-- EN: Year is filled in by JS below. ES: Año se llena con JS abajo. -->
+          <!-- Year is filled in by JS below.-->
           <span>© <span id="year"></span> JD The Plumber LLC. All rights reserved.</span>
         </div>
       </div>
@@ -937,8 +938,7 @@
 
   <!-- =======================================================================
        STICKY MOBILE CTA
-       EN: Bottom fixed buttons for quick actions on mobile.
-       ES: Botones fijos inferiores para acciones rápidas en móvil.
+       Bottom fixed buttons for quick actions on mobile.
        ======================================================================= -->
   <div class="stickyCall" aria-label="Mobile quick actions">
     <a class="btn danger" href="tel:+14079677764">🚨 Emergency Call</a>
@@ -948,62 +948,51 @@
   <script>
     /* =======================================================================
        JAVASCRIPT
-       EN: Interactivity for mobile menu, tile selection, and year display.
-       ES: Interactividad para menú móvil, selección de servicios y año.
+       Interactivity for mobile menu, tile selection, and year display.
        ======================================================================= */
 
     // -----------------------------------------------------------------------
-    // EN: Mobile menu toggle (hamburger opens/closes the panel).
-    // ES: Alternar menú móvil (hamburguesa abre/cierra el panel).
+    // Mobile menu toggle (hamburger opens/closes the panel).
     // -----------------------------------------------------------------------
     const hamburger = document.getElementById('hamburger');
     const mobilePanel = document.getElementById('mobilePanel');
 
     hamburger?.addEventListener('click', () => {
-      // EN: Check if panel is currently open.
-      // ES: Revisar si el panel está abierto.
+      // Check if panel is currently open.
       const open = mobilePanel.style.display === 'block';
 
-      // EN: Toggle display.
-      // ES: Alternar display.
+      // Toggle display.
       mobilePanel.style.display = open ? 'none' : 'block';
 
-      // EN: Update accessibility attribute.
-      // ES: Actualizar atributo de accesibilidad.
+      // Update accessibility attribute.
       hamburger.setAttribute('aria-expanded', String(!open));
     });
 
     // -----------------------------------------------------------------------
-    // EN: Set footer year automatically.
-    // ES: Establecer el año del pie automáticamente.
+    // Set footer year automatically.
     // -----------------------------------------------------------------------
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // -----------------------------------------------------------------------
-    // EN: Tile click -> selects the service in the dropdown -> jumps to #contact.
-    // ES: Clic en tile -> selecciona servicio en el desplegable -> salta a #contact.
+    // Tile click -> selects the service in the dropdown -> jumps to #contact.
     // -----------------------------------------------------------------------
     const serviceSelect = document.getElementById('serviceSelect');
 
     document.querySelectorAll('.tile').forEach(tile => {
       tile.addEventListener('click', () => {
-        // EN: Read service name from the tile.
-        // ES: Leer el nombre del servicio desde el tile.
+        // Read service name from the tile.
         const service = tile.getAttribute('data-service');
 
         if (serviceSelect) {
-          // EN: If that option exists, select it; else default to "Other / Not Sure".
-          // ES: Si existe la opción, seleccionarla; si no, usar "Other / Not Sure".
+          // If that option exists, select it; else default to "Other / Not Sure".
           const opts = Array.from(serviceSelect.options).map(o => o.value);
           serviceSelect.value = opts.includes(service) ? service : "Other / Not Sure";
         }
 
-        // EN: Jump/scroll to the contact section.
-        // ES: Saltar/desplazar a la sección de contacto.
+        // Jump/scroll to the contact section.
         window.location.hash = '#contact';
 
-        // EN: On mobile, close the mobile menu if it was open.
-        // ES: En móvil, cerrar el menú si estaba abierto.
+        // On mobile, close the mobile menu if it was open.
         if (window.innerWidth <= 680) {
           mobilePanel.style.display = 'none';
           hamburger.setAttribute('aria-expanded', 'false');
@@ -1012,8 +1001,7 @@
     });
 
     // -----------------------------------------------------------------------
-    // EN: Close mobile menu when clicking a mobile menu anchor link (#...).
-    // ES: Cerrar el menú móvil al tocar un enlace del menú (#...).
+    // Close mobile menu when clicking a mobile menu anchor link (#...).
     // -----------------------------------------------------------------------
     document.querySelectorAll('#mobilePanel a[href^="#"]').forEach(a => {
       a.addEventListener('click', () => {
@@ -1024,3 +1012,5 @@
   </script>
 </body>
 </html>
+JD_The_Plumber_English_Light_Theme.html
+HTML
