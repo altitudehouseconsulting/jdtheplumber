@@ -1,44 +1,3 @@
-Pasted text(20260813-014742).txt
-Document
-
-Done. I removed the Spanish from the visible webpage text and the bilingual comments while preserving the HTML, CSS, JavaScript, links, phone number, email, form behavior, and overall design. The original file contained bilingual English/Spanish labels and comments throughout.
-
-Download the English-only HTML file 
-
-JD_The_Plumber_English_Only.html
-HTML
-why is the background so dark
-
-The background is dark because the original HTML was intentionally designed with a dark theme. I didn't change the design when removing the Spanish.
-
-Specifically, your CSS defines:
-
---bg:#0b1220;
---text:#e9eefb;
-
-and the page background uses an even darker base:
-
-body {
-  background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(74,163,255,.25), transparent 60%),
-    radial-gradient(900px 500px at 90% 0%, rgba(47,224,179,.20), transparent 60%),
-    linear-gradient(180deg, #070b14, var(--bg));
-}
-
-So #070b14 and #0b1220 are essentially very dark navy/black. The cards are also translucent dark colors. That design was already present in your original code.
-
-For a plumbing business, I think a lighter, cleaner professional design would work better—white/light gray background with blue accents, while keeping the existing layout and functionality.
-
-I can change the HTML I just created to a professional light theme without changing the content or functionality.
-
-yes please
-
-Done. I converted the site to a clean professional light theme while keeping the existing layout, English-only content, forms, buttons, and functionality.
-
-The new design uses a white/light-gray background with blue and teal accents and darker text for readability.
-
-Download the light-theme HTML 
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -1012,5 +971,3 @@ usa un servicio de formularios (Formspree/Netlify) o un backend.
   </script>
 </body>
 </html>
-JD_The_Plumber_English_Light_Theme.html
-HTML
