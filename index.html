@@ -1,274 +1,436 @@
+
+Claude finished the response
+I have html code for a website I would like improved, layout more symmetrical and user friendly without losing functionality.
+
+I'd be glad to help improve your website's layout. Could you paste the HTML code here, or if you have it as a file, go ahead and upload it? Once I can see it, I'll take a look at the current structure and suggest layout improvements that make it more symmetrical and user-friendly while keeping everything working the way it should.
+
+
+<!doctype html> <html lang="en"> <head> <!-- Basic document metadata (charset + responsive layout). --> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Page title shown in the browser tab + used by search engines. -
+
+pasted
+
+Additionally please adjust the color schema to make it more user friendly in Mobile viewing experience.
+
+
+Diagnosed cascading comment bugs, restructured layouts, and enhanced mobile color contrast
+Diagnosed cascading comment bugs, restructured layouts, and enhanced mobile color contrast
+Here's the improved version. A few things worth knowing:
+
+A real bug I fixed: your original file had a lot of unclosed CSS/HTML comments (/* ... */ and <!-- ... --> missing their closing tags). That's not a style nitpick — it was actually swallowing real content into "comments" and hiding it from the browser: the logo styling, the a{color:inherit} rule, the desktop Emergency Call/Get a Quote buttons, and part of the hero paragraph were all silently disabled. That's likely why things looked off. All comments are now properly closed.
+
+Layout symmetry:
+
+Service tiles now use grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)) instead of manual column-span breakpoints, so they stay evenly sized at any width without needing separate rules for tablet/phone.
+Hero cards and the commercial/residential/quote/contact panels now stretch to equal height in their row, so nothing looks lopsided.
+Tiles are flex columns so title/description/label line up across the row even with different text lengths.
+Mobile color scheme:
+
+Deepened text and border contrast (--text, --line) — the original's very light borders/text were hard to read outdoors on a phone.
+Made the Emergency button a solid, saturated red instead of a faint red-tint outline — it's the most important tap target on the page and needed to read instantly at a glance.
+Primary button text is now solid white on the gradient for better contrast than the old near-black.
+Gave the sticky mobile CTA bar its own frosted background/border so it doesn't blend into whatever content is scrolled behind it.
+Bumped tap targets to 44px minimum and added a mobile-only rule that strengthens borders further for bright-light readability.
+Added a theme-color meta tag so the mobile browser's address bar matches the brand.
+Everything functional is preserved: mailto quote form, tile→dropdown pre-selection, hamburger menu, sticky CTA, tel/mailto links, and the auto-updating footer year.
+
+
+Jd the plumber
+Code · HTML 
+What are your thoughts on the font that is used, is there a better font?
+
+The current stack (system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial) is a safe, practical choice — it loads instantly with zero extra requests and looks native on whatever device someone's on. For a local service business, that's not a bad call. But it's also completely generic — it's the default font on basically every device, so the site doesn't have any real typographic personality, and it can look a little flat next to the gradient/pill-heavy visual style you've got going.
+
+A few honest observations:
+
+Numbers matter a lot here (phone number, hours, prices later on) — system fonts render numerals inconsistently across platforms, and some (like default Arial/Helvetica fallback) have fairly cramped digits.
+The headline (h1) is doing a lot of visual work with clamp() sizing, but system-ui doesn't have much character at large sizes — it was designed for UI chrome, not headlines.
+Your body copy is small and light-colored (--muted), so legibility at small sizes matters more than usual.
+If I were picking something with more personality but still trustworthy/legible for a trades business, I'd lean toward one of these (all free, all on Google Fonts, one <link> tag):
+
+Inter — the modern default-but-better option. Excellent legibility at small sizes, clean numerals, very neutral/professional. Basically "system-ui but actually designed well." Safe upgrade with almost no risk.
+Manrope or Sora — geometric sans with slightly more warmth/character in headlines, still reads as clean and modern. Good if you want the brand to feel a bit more contemporary/tech-forward (fits the blue/teal gradient accent you're using).
+Plus Jakarta Sans — friendly, rounded-ish geometric sans, good for a service business that wants to feel approachable rather than corporate.
+For a plumbing company specifically, I'd avoid anything too soft/rounded (reads as childish) or too sharp/condensed (reads as cold/corporate) — something like Inter or Manrope hits the "competent, trustworthy, easy to read on a phone" mark well.
+
+Want me to swap the font in the file? I'd suggest Inter for body text (small sizes, form labels, nav) and optionally pair it with something slightly bolder for the h1 if you want more headline punch — happy to do either.
+
+ok lets make the modification will you also heavily comment the code to know what is happening. In addition identify an security risks in the code.
+
+
+Upgraded typography, fortified code documentation, and audited security vulnerabilities
+Upgraded typography, fortified code documentation, and audited security vulnerabilities
+Done — switched the site to Inter (loaded via Google Fonts, with the old system-font stack kept as a fallback), and heavily commented every section of the CSS, HTML, and JS explaining the why, not just the what.
+
+Security review — here's what I found:
+
+Overall this is a static, no-backend site, which is inherently low-risk — there's no database, no server-side code, and nothing typed by a visitor is ever executed or redisplayed on the page. That rules out the most common vulnerability classes (SQL injection, stored/reflected XSS) entirely as the site is built today. That said, a few things worth knowing:
+
+The email address is exposed in plain text (jdplumberusa@gmail.com). Spam bots crawl pages specifically for mailto: links — this address will end up on spam lists over time. Not really fixable without hurting legitimate contact/SEO, but worth knowing so it's not a surprise.
+The quote form has no server behind it — it uses mailto:, which just opens the visitor's own email app. This means:
+No sanitization needed today — nothing is stored or processed server-side.
+But it also means it silently fails on any device without a configured email client (common on desktop, sometimes mobile), so leads can be lost with no error shown.
+If this ever moves to a real backend (Formspree, Netlify Forms, a custom endpoint — likely needed to fix #2), that's the moment real protections become necessary and currently don't exist: a honeypot field or CAPTCHA, server-side validation/sanitization (never trust the required/type="email" attributes — they're client-side only and trivially bypassed), and rate-limiting to stop spam floods. I flagged this directly in the code comments above the form so it's not forgotten later.
+Third-party font request — loading Inter from Google Fonts means Google's servers see visitors' IP addresses on every page load. Extremely standard practice, low risk, but if you ever need strict control over third-party requests (e.g. a formal privacy policy), self-hosting the font files is the alternative.
+No security headers (like Content-Security-Policy or X-Frame-Options) — these can't be fully set from plain HTML; they need to be configured at the hosting/server level once you pick where this gets deployed. Worth asking your host about when you go live.
+Nothing here is urgent for a static informational site like this — it's more a checklist for if/when the form gets a real backend.
+
+
+Jd the plumber
+Code · HTML 
+can I have the code for this site
+
+The full HTML file is right above — that link opens/downloads the complete file (jd-the-plumber.html) with the Inter font, the fixed markup, the symmetrical layout, and all the comments and security notes baked in. It's a single self-contained file (HTML, CSS, and JS all together), so you can just upload it as-is to any web host or open it directly in a browser to preview it.
+
+
+
+
+
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+
+
+Jd the plumber · HTML
 <!doctype html>
 <html lang="en">
 <head>
-  <!--
-    Basic document metadata (charset + responsive layout).
-  -->
+  <!-- ===========================================================================================
+       DOCUMENT METADATA
+       - charset: tells the browser this file is UTF-8 (needed for the special characters
+         used further down, like the em dash "&mdash;" and the smart apostrophe "&rsquo;").
+       - viewport: without this, mobile browsers render the page at a fake "desktop" width
+         (~980px) and zoom out to fit it, which breaks all of the mobile CSS below. This tag
+         tells the browser "render at the device's actual width, and don't auto-zoom."
+       =========================================================================================== -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!--
-    Page title shown in the browser tab + used by search engines.
-  -->
+ 
+  <!-- Page title shown in the browser tab, bookmarks, and search engine results. -->
   <title>JD The Plumber LLC | Commercial & Residential Plumbing</title>
-
-  <!--
-    Short description for SEO and sharing previews.
-  -->
+ 
+  <!-- Shown under the title in Google search results and in social-media link previews. -->
   <meta name="description" content="JD The Plumber LLC provides commercial and residential plumbing services: repairs, installs, water heaters, drain cleaning, leak detection, and emergency service." />
-
+ 
+  <!-- On Android Chrome, this tints the browser's address bar/status bar to match the brand. -->
+  <meta name="theme-color" content="#0b1220" />
+ 
+  <!-- ===========================================================================================
+       WEB FONT: Inter
+       Why: the previous version used the OS's default UI font (system-ui). That's fast and
+       safe, but has no real personality and renders inconsistently across devices/platforms.
+       Inter is a free, open-source font designed specifically for UI/legibility at small
+       sizes (form labels, phone numbers, nav links) while still having a modern, confident
+       look at the large hero headline size.
+ 
+       "preconnect" opens the network connection to Google's font servers early, in parallel
+       with the rest of the page loading, so the font itself arrives faster once requested.
+ 
+       SECURITY / PRIVACY NOTE: this loads a file from a third-party domain (Google) on every
+       visit, which means Google's servers see the visitor's IP address and browser info for
+       that request. This is extremely common practice and low-risk, but if you ever need to
+       be strict about third-party requests (e.g. for a privacy policy or GDPR compliance),
+       the alternative is to download the font files and self-host them instead of using
+       this CDN link. Flagging this here so it's a documented, intentional choice rather than
+       an overlooked one.
+       =========================================================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+ 
   <style>
-    /* =======================================================================
-       CSS variables (theme colors, shadows, spacing).
-       ======================================================================= */
+    /* =============================================================================================
+       CSS VARIABLES (design tokens)
+       Centralizing colors/spacing here means changing the brand palette later only requires
+       editing this one block instead of hunting through every rule below.
+ 
+       Contrast has been tuned for OUTDOOR / MOBILE reading conditions: many visitors will be
+       looking at this on a phone in a driveway or job site in direct sunlight, so text,
+       borders, and buttons all lean toward higher contrast than a typical light "SaaS" theme.
+       ============================================================================================= */
     :root{
-      --bg:#f4f7fb;
-      --text:#172033;
-      --muted:#5f6b7a;
-      --line:rgba(23,32,51,.12);
-      --accent:#4aa3ff;
-      --accent2:#2fe0b3;
-      --danger:#ff4d5e;
-      --shadow: 0 10px 30px rgba(31,45,61,.10);
-      --radius:18px;
+      --bg:#eef3f9;              /* page background (very light blue-gray) */
+      --text:#101827;            /* primary text color - near-black for max readability */
+      --muted:#4b5666;           /* secondary text (descriptions, helper text) */
+      --line:rgba(16,24,39,.16); /* border color used everywhere for consistency */
+      --accent:#1f7ae0;          /* primary brand blue */
+      --accent2:#0fae8c;         /* secondary brand teal, used in gradients */
+      --danger:#e0293f;          /* emergency / urgent red */
+      --danger-strong:#c81830;   /* darker red for hover states */
+      --shadow: 0 10px 30px rgba(16,24,39,.12); /* standard card drop-shadow */
+      --radius:18px;             /* standard corner rounding for cards */
     }
-
-    /* Use border-box for predictable sizing.*/
+ 
+    /* border-box means padding/border are counted INSIDE an element's declared width,
+       instead of added on top of it. Without this, every width:100% element with padding
+       would overflow its container - this one line prevents a whole category of layout bugs. */
     *{box-sizing:border-box}
     html,body{height:100%}
-
-    /* -----------------------------------------------------------------------
-       Global body styling (background gradients + typography).
-       ----------------------------------------------------------------------- */
+ 
+    /* ---------------------------------------------------------------------------------------------
+       GLOBAL BODY STYLING
+       --------------------------------------------------------------------------------------------- */
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      /* Inter first, then the old system-font stack as a fallback in case the Google Fonts
+         request fails (offline, blocked network, ad-blocker, etc.) - the page still looks
+         reasonable rather than falling back to Times New Roman. */
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(74,163,255,.12), transparent 60%),
-        radial-gradient(900px 500px at 90% 0%, rgba(47,224,179,.10), transparent 60%),
+        radial-gradient(1200px 600px at 10% -10%, rgba(31,122,224,.10), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(15,174,140,.09), transparent 60%),
         linear-gradient(180deg, #ffffff, var(--bg));
       color:var(--text);
       line-height:1.5;
+      /* Improves how the font renders on Mac/iOS - thinner, crisper letterforms. */
+      -webkit-font-smoothing: antialiased;
     }
-
-    /* Keep links inheriting color so the theme stays consistent.
+ 
+    /* Links inherit whatever color their parent element has, instead of the browser's
+       default blue/purple. This keeps link color consistent with the surrounding design
+       (e.g. a link inside muted gray text stays gray) unless explicitly overridden. */
     a{color:inherit}
-
-    /* Center container with max width;*/
+ 
+    /* The main content column. min(1100px, 92vw) means: use 92% of the viewport width,
+       but never exceed 1100px - so the layout doesn't stretch too wide on large monitors. */
     .container{width:min(1100px, 92vw); margin:0 auto}
-
-    /* =======================================================================
+ 
+    /* =============================================================================================
        TOP BAR / NAVIGATION
-       Sticky navigation bar at the top.
-       ======================================================================= */
+       ============================================================================================= */
     .topbar{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(12px);
-      background: rgba(255,255,255,.92);
+      position:sticky; top:0; z-index:50; /* stays pinned to the top while scrolling */
+      backdrop-filter: blur(12px);        /* frosted-glass effect over content behind it */
+      background: rgba(255,255,255,.94);
       border-bottom:1px solid var(--line);
     }
-
-    /* Nav row layout;*/
+ 
     .nav{
       display:flex; align-items:center; justify-content:space-between;
       padding:14px 0;
       gap:14px;
     }
-
-    /* Brand (logo + company name).*/
+ 
+    /* The clickable logo + company name block, wrapped in a single <a> tag. */
     .brand{
       display:flex; align-items:center; gap:12px;
       text-decoration:none;
-      min-width: 240px;
+      min-width: 220px; /* stops the brand text from squeezing too narrow on tablet widths */
     }
-
-    /* Simple generated logo (no image file needed).
+ 
+    /* A CSS-only "logo" (gradient square + decorative arc) - no image file to load,
+       no broken-image risk, and it scales perfectly at any resolution. */
     .logo{
-      width:40px; height:40px; border-radius:12px;
+      width:42px; height:42px; border-radius:12px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 10px 25px rgba(74,163,255,.25);
+      box-shadow: 0 10px 22px rgba(31,122,224,.30);
       position:relative;
+      flex: 0 0 auto; /* never shrinks, even if the brand text is long */
     }
-
-    /* Decorative mark inside the logo.
+ 
+    /* The curved white line drawn on top of the logo square via a pseudo-element,
+       rather than a second HTML element - keeps the markup clean. */
     .logo:after{
       content:"";
       position:absolute; inset:10px 11px 10px 11px;
-      border:2px solid rgba(255,255,255,.90);
+      border:2px solid rgba(255,255,255,.92);
       border-top-color: transparent;
       border-right-color: transparent;
       border-radius:10px;
       transform: rotate(-35deg);
     }
-
+ 
     .brand b{display:block; font-size:14px; letter-spacing:.3px}
     .brand small{display:block; color:var(--muted); font-size:12px}
-
-    /* Desktop navigation links;*/
-    .navlinks{display:flex; gap:14px; align-items:center}
+ 
+    /* Desktop-only nav links (hidden on mobile in favor of the hamburger menu below). */
+    .navlinks{display:flex; gap:6px; align-items:center}
     .navlinks a{
       text-decoration:none;
       color:var(--muted);
-      padding:10px 10px;
+      padding:10px 12px;
       border-radius:12px;
+      font-size: 14px;
+      font-weight: 600;
     }
-    .navlinks a:hover{color:var(--text); background: rgba(255,255,255,.06)}
-
-    /* Right-side CTA buttons (desktop).
+    .navlinks a:hover{color:var(--text); background: rgba(16,24,39,.06)}
+ 
     .ctaRow{display:flex; gap:10px; align-items:center}
-
-    /* -----------------------------------------------------------------------
+ 
+    /* ---------------------------------------------------------------------------------------------
        BUTTONS
-       Shared button styles.
-       ----------------------------------------------------------------------- */
+       One shared .btn class plus modifier classes (.primary / .danger) - this is the
+       "BEM-lite" pattern: change the look in one place, every button updates everywhere.
+       --------------------------------------------------------------------------------------------- */
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 14px;
+      padding:11px 16px;
       border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(23,32,51,.04);
+      border:1.5px solid var(--line);
+      background: rgba(16,24,39,.045);
       color:var(--text);
       text-decoration:none;
-      font-weight:600;
-      gap:10px;
+      font-weight:700;
+      font-size: 14px;
+      gap:8px;
       white-space:nowrap;
+      /* 44px is Apple's/Google's documented minimum comfortable touch-target size -
+         keeps every button easy to tap accurately on a phone screen. */
+      min-height: 44px;
     }
-    .btn:hover{background: rgba(23,32,51,.08)}
-
-    /* Primary gradient button;*/
+    .btn:hover{background: rgba(16,24,39,.09)}
+ 
+    /* The main "do the important thing" button - brand gradient + white text for
+       maximum contrast (the earlier near-black text on a mid-brightness gradient
+       was harder to read; white text tests better here). */
     .btn.primary{
       border: none;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #06101d;
-      box-shadow: 0 14px 28px rgba(74,163,255,.20);
+      color: #ffffff;
+      box-shadow: 0 14px 26px rgba(31,122,224,.28);
     }
-
-    /* Emergency “danger” button;*/
+ 
+    /* The emergency-call button is intentionally the highest-contrast, most saturated
+       element on the page - it's the single most time-sensitive action a visitor
+       can take, so it should never blend in. */
     .btn.danger{
-      border:1px solid rgba(255,77,94,.35);
-      background: rgba(255,77,94,.07);
-      color: #b42335;
+      border:1.5px solid var(--danger-strong);
+      background: var(--danger);
+      color: #ffffff;
+      box-shadow: 0 12px 22px rgba(224,41,63,.28);
     }
-
-    /* =======================================================================
-       MOBILE MENU
-       Hamburger appears on small screens.
-       ======================================================================= */
+    .btn.danger:hover{background: var(--danger-strong)}
+ 
+    /* =============================================================================================
+       MOBILE MENU (hamburger + slide-down panel)
+       ============================================================================================= */
     .hamburger{
-      display:none;
-      width:44px; height:44px;
+      display:none; /* only turned on inside the 680px media query below */
+      width:46px; height:46px;
       border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(23,32,51,.04);
+      border:1.5px solid var(--line);
+      background: rgba(16,24,39,.045);
       color:var(--text);
+      font-size: 18px;
       align-items:center; justify-content:center;
       cursor:pointer;
     }
-    .hamburger:active{transform: scale(.98)}
-
-    /* Hidden panel that opens under the top bar on mobile.
-    .mobilePanel{display:none; padding:0 0 12px 0;}
+    .hamburger:active{transform: scale(.98)} /* subtle "press" feedback on tap */
+ 
+    /* Hidden by default (display:none). JS toggles this to 'block' on click - see the
+       <script> at the bottom of the file. */
+    .mobilePanel{display:none; padding:0 0 14px 0;}
     .mobilePanel .stack{display:grid; gap:8px; padding: 0 0 8px 0;}
     .mobilePanel a{
       text-decoration:none;
-      padding:12px 12px;
-      border:1px solid var(--line);
+      padding:13px 14px;
+      border:1.5px solid var(--line);
       border-radius:14px;
-      background: rgba(23,32,51,.035);
-      color: var(--muted);
+      background: rgba(16,24,39,.04);
+      color: var(--text);
+      font-weight:600;
+      min-height: 44px; /* same touch-target minimum as .btn */
+      display:flex;
+      align-items:center;
     }
-    .mobilePanel a:hover{color:var(--text); background: rgba(23,32,51,.06)}
+    .mobilePanel a:hover{background: rgba(16,24,39,.08)}
     .mobilePanel .btn{width:100%}
-
-    /* =======================================================================
-       HERO
-       Top section with headline + quick actions.
-       ======================================================================= */
+ 
+    /* =============================================================================================
+       HERO SECTION
+       ============================================================================================= */
     header.hero{padding: 34px 0 18px 0;}
-
-    /* Two-column layout on desktop;*/
+ 
+    /* Two-column grid: main message card is wider (1.15fr) than the "what you get"
+       side card (0.85fr) - a deliberate, fixed ratio rather than eyeballed widths,
+       so the two columns always stay proportionally balanced at any screen size. */
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 18px;
-      align-items:stretch;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 20px;
+      align-items:stretch; /* both cards match height even if content length differs */
     }
-
-    /* Main hero card;*/
+ 
     .heroCard{
       border:1px solid var(--line);
       border-radius: var(--radius);
-      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      background: linear-gradient(180deg, #ffffff, #f6faff);
       box-shadow: var(--shadow);
-      padding: 20px;
-      overflow:hidden;
+      padding: 26px;
+      overflow:hidden; /* clips the decorative glow blob below to the card's edges */
       position:relative;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
-
-    /* Decorative glow blob behind hero content.
+ 
+    /* Purely decorative gradient "glow" positioned behind the hero text using a
+       pseudo-element, so it doesn't add an extra empty <div> to the markup. */
     .heroCard:before{
       content:"";
       position:absolute;
       inset:-120px -140px auto auto;
       width: 320px;
       height: 320px;
-      background: radial-gradient(circle at 30% 30%, rgba(74,163,255,.55), transparent 60%),
-                  radial-gradient(circle at 65% 65%, rgba(47,224,179,.45), transparent 60%);
+      background: radial-gradient(circle at 30% 30%, rgba(31,122,224,.45), transparent 60%),
+                  radial-gradient(circle at 65% 65%, rgba(15,174,140,.40), transparent 60%);
       transform: rotate(12deg);
-      opacity:.55;
-      pointer-events:none;
+      opacity:.5;
+      pointer-events:none; /* so it never intercepts clicks meant for content on top of it */
     }
-
-    /* Responsive font size with clamp();*/
+ 
+    /* clamp(min, preferred, max) lets the headline scale smoothly with viewport width
+       instead of jumping between fixed sizes at breakpoints - 26px on the smallest
+       phones, up to 44px on wide desktop screens. */
     h1{
       margin: 0 0 10px 0;
       font-size: clamp(26px, 3.5vw, 44px);
-      letter-spacing: -.6px;
+      font-weight: 800; /* Inter's bold weight gives the headline real presence */
+      letter-spacing: -.6px; /* tightened slightly - large bold text reads better tighter */
       line-height: 1.12;
     }
     .sub{
       margin: 0 0 16px 0;
       color: var(--muted);
-      max-width: 62ch;
+      max-width: 62ch; /* caps line length for readability - ~62 characters per line is
+                            the generally recommended max for comfortable reading */
       font-size: 15px;
     }
-
-    /* Small highlight “pills”;*/
-    .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin: 12px 0 0}
+ 
+    /* Small rounded "badge" labels used to list trust signals (licensed, insured, etc). */
+    .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin: 14px 0 0}
     .pill{
       border:1px solid var(--line);
-      background: rgba(23,32,51,.04);
+      background: rgba(16,24,39,.045);
       color: var(--muted);
-      padding: 8px 10px;
-      border-radius: 999px;
+      padding: 8px 12px;
+      border-radius: 999px; /* large radius = fully rounded pill shape */
       font-size: 12px;
+      font-weight:600;
     }
-
-    /* Hero buttons row;*/
-    .heroActions{display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px}
-    .heroActions .btn{padding:12px 14px}
-
-    /* Side info card;*/
+ 
+    .heroActions{display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px}
+ 
     .sideCard{
       border:1px solid var(--line);
       border-radius: var(--radius);
       background: linear-gradient(180deg, #ffffff, #f2f7fd);
       box-shadow: var(--shadow);
-      padding: 18px;
+      padding: 20px;
+      display:flex;
+      flex-direction:column;
     }
-    .sideCard h2{margin:0 0 10px 0; font-size: 16px; letter-spacing: .2px;}
-
-    /* List of benefits;*/
-    .kv{display:grid; grid-template-columns: 1fr; gap:10px; margin-top: 10px;}
+    .sideCard h2{margin:0 0 12px 0; font-size: 16px; letter-spacing: .2px;}
+ 
+    .kv{display:grid; grid-template-columns: 1fr; gap:10px; margin-top: 2px;}
     .kv .item{
       display:flex; gap:10px; align-items:flex-start;
       padding: 12px;
       border-radius: 16px;
       border:1px solid var(--line);
-      background: rgba(23,32,51,.035);
+      background: rgba(16,24,39,.04);
     }
-
-    /* Gradient bullet dot;*/
+ 
+    /* Small gradient dot used as a bullet-point marker instead of a default browser bullet. */
     .dot{
       width:10px; height:10px; border-radius:99px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -277,132 +439,153 @@
     }
     .item b{display:block; font-size: 13px}
     .item span{display:block; color:var(--muted); font-size: 12px; margin-top:2px}
-
-    /* =======================================================================
+ 
+    /* =============================================================================================
        SERVICE TILES
-       Grid of selectable service tiles.
-       ======================================================================= */
+       repeat(auto-fit, minmax(230px, 1fr)) is doing the heavy lifting here: the browser
+       automatically fits as many 230px+ columns as will cleanly fit the row, and stretches
+       them evenly to fill any leftover space. That gives symmetrical tiles at ANY screen
+       width without writing separate rules for tablet vs. phone vs. desktop.
+       ============================================================================================= */
     section.tiles{padding: 14px 0 34px 0;}
-
+ 
     .sectionHead{
       display:flex; align-items:flex-end; justify-content:space-between;
       gap: 12px;
-      margin: 14px 0 10px;
+      margin: 14px 0 14px;
+      flex-wrap: wrap; /* so this row wraps gracefully instead of overflowing on narrow screens */
     }
     .sectionHead h2{margin:0; font-size: 18px; letter-spacing: .2px;}
     .sectionHead p{margin:0; color: var(--muted); font-size: 13px;}
-
-    /* 12-column grid system;*/
-    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap: 12px;}
-
-    /* Each tile is a button so it can be tapped/clicked and accessible.
+ 
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+ 
+    /* Tiles are real <button> elements (not <div>s with onclick) specifically so they're
+       keyboard-focusable and screen-reader accessible out of the box, without extra ARIA work. */
     .tile{
-      grid-column: span 4; /* 3 tiles per row on desktop;*/
       border:1px solid var(--line);
       background: linear-gradient(180deg, #ffffff, #f8fbff);
       border-radius: 18px;
-      padding: 14px;
+      padding: 16px;
       cursor:pointer;
       text-align:left;
       color: var(--text);
       position:relative;
       overflow:hidden;
-      min-height: 120px;
+      min-height: 132px;
+      display:flex;
+      flex-direction:column;
+      font-family: inherit; /* buttons don't inherit font-family by default in most browsers -
+                                this line stops the tiles rendering in the OS default font. */
     }
-
-    /* Hover lift effect;*/
+ 
     .tile:hover{
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      transform: translateY(-1px);
+      background: linear-gradient(180deg, #ffffff, #eef6ff);
+      transform: translateY(-1px); /* subtle lift on hover */
       transition: transform .12s ease, background .12s ease;
     }
-
-    /* Icon box;*/
+ 
     .tile .icon{
       width:42px; height:42px; border-radius:16px;
       border:1px solid var(--line);
-      background: rgba(23,32,51,.04);
+      background: rgba(16,24,39,.045);
       display:flex; align-items:center; justify-content:center;
       font-size: 18px;
       margin-bottom: 10px;
     }
     .tile h3{margin:0 0 6px 0; font-size: 15px}
-    .tile p{margin:0; color: var(--muted); font-size: 13px}
-
-    /* Sub-label at bottom of tile;*/
+    .tile p{margin:0; color: var(--muted); font-size: 13px; flex: 1 0 auto;} /* pushes the
+                                "Choose this service" label to the bottom of every tile,
+                                 even when descriptions are different lengths */
+ 
     .tile small{
       display:inline-flex;
       margin-top: 10px;
-      color: rgba(23,32,51,.9);
-      font-weight:600;
+      color: var(--accent);
+      font-weight:700;
       gap:8px;
       align-items:center;
     }
-
-    /* =======================================================================
-       TWO-COLUMN SECTION + CONTACT FORM
-       Commercial/Residential boxes + quote form and contact info.
-       ======================================================================= */
+ 
+    /* =============================================================================================
+       TWO-COLUMN SECTIONS (Commercial/Residential panels, and Quote form + Contact card)
+       Both re-use the same .split/.panel classes so they stay visually consistent.
+       ============================================================================================= */
     .split{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 16px;
       padding: 0 0 38px 0;
+      align-items:stretch; /* equal-height panels regardless of content length */
     }
-
+ 
     .panel{
       border:1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(23,32,51,.035);
-      padding: 16px;
+      background: #ffffff;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      display:flex;
+      flex-direction:column;
     }
     .panel h2{margin:0 0 10px 0; font-size: 16px}
     .panel p{margin:0 0 12px 0; color: var(--muted); font-size: 13px}
-
-    /* Form layout;*/
-    form{display:grid; gap: 10px;}
-
-    /* Two-up inputs on larger screens;*/
-    .row2{display:grid; grid-template-columns: 1fr 1fr; gap: 10px;}
-
-    label{display:grid; gap: 6px; font-size: 12px; color: var(--muted);}
-
-    /* Inputs match the dark theme;*/
+    .panel ul{margin:0; padding-left: 18px; color: var(--muted); font-size: 13px; line-height:1.7;}
+ 
+    /* ---------------------------------------------------------------------------------------------
+       QUOTE FORM
+       --------------------------------------------------------------------------------------------- */
+    form{display:grid; gap: 12px;}
+    .row2{display:grid; grid-template-columns: 1fr 1fr; gap: 12px;}
+ 
+    label{display:grid; gap: 6px; font-size: 12px; color: var(--muted); font-weight:600;}
+ 
     input, select, textarea{
       width:100%;
-      padding: 12px 12px;
+      padding: 13px 12px;
       border-radius: 14px;
-      border:1px solid var(--line);
+      border:1.5px solid var(--line);
       background: #ffffff;
       color: var(--text);
-      outline:none;
+      outline:none; /* default browser outline removed... */
+      font-size: 15px; /* 15px+ prevents iOS Safari from auto-zooming in when a field
+                            is focused (anything under 16px used to trigger it; keeping
+                            this explicit avoids the jarring zoom-on-tap on iPhones) */
+      font-family: inherit;
     }
-
-    /* Focus outline for accessibility;*/
+ 
+    /* ...and replaced here with a custom, more visible focus ring, so keyboard/accessibility
+       navigation isn't lost - removing the default outline without replacing it is a common
+       accessibility mistake, avoided here on purpose. */
     input:focus, select:focus, textarea:focus{
-      border-color: rgba(74,163,255,.55);
-      box-shadow: 0 0 0 4px rgba(74,163,255,.12);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(31,122,224,.16);
     }
-
+ 
     textarea{min-height: 92px; resize: vertical}
-
-    /* Small helper text;*/
+ 
     .fineprint{font-size: 12px; color: var(--muted); margin-top: 8px;}
-
-    /* =======================================================================
+    .fineprint a{font-weight:700}
+ 
+    .contactList{display:grid; gap:10px;}
+ 
+    /* =============================================================================================
        FOOTER
-       Basic footer with links + emergency callout.
-       ======================================================================= */
+       ============================================================================================= */
     footer{
       border-top: 1px solid var(--line);
-      padding: 18px 0 34px 0;
+      padding: 22px 0 40px 0;
       color: var(--muted);
       font-size: 12px;
     }
     .footGrid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
-      gap: 14px;
+      gap: 16px;
       align-items:start;
     }
     .footGrid b{color: var(--text)}
@@ -410,65 +593,88 @@
     .footLinks a{
       color: var(--muted);
       text-decoration:none;
-      padding:8px 10px;
+      padding:9px 12px;
       border-radius:12px;
       border:1px solid var(--line);
-      background: rgba(23,32,51,.025)
+      background: rgba(16,24,39,.03);
+      font-weight:600;
     }
-    .footLinks a:hover{color: var(--text); background: rgba(255,255,255,.06)}
-
-    /* =======================================================================
-       STICKY MOBILE CTA
-       On small screens, show a fixed “call/quote” bar at the bottom.
-       ======================================================================= */
+    .footLinks a:hover{color: var(--text); background: rgba(16,24,39,.07)}
+ 
+    .emergencyBox{
+      border:1.5px solid rgba(224,41,63,.35);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(224,41,63,.06);
+    }
+    .emergencyBox a{color: var(--danger-strong); font-weight:700}
+ 
+    /* =============================================================================================
+       STICKY MOBILE CTA BAR
+       Fixed to the bottom of the viewport ONLY on small screens (see the 680px media query),
+       so there's always a one-tap call/quote action within thumb's reach on mobile.
+       ============================================================================================= */
     .stickyCall{
       position: fixed;
       left: 12px;
       right: 12px;
       bottom: 12px;
-      display:none;
+      display:none; /* switched to flex only under 680px, see media query below */
       gap: 10px;
-      z-index: 60;
+      z-index: 60; /* above everything except the sticky topbar's z-index:50... intentionally
+                       higher, so this bar is always the top-most interactive layer */
+      padding: 8px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
     }
     .stickyCall .btn{
       width: 100%;
       padding: 14px 16px;
-      border-radius: 18px;
-      box-shadow: var(--shadow);
+      border-radius: 16px;
     }
-
-    /* =======================================================================
+ 
+    /* =============================================================================================
        RESPONSIVE BREAKPOINTS
-       Adjust layout for tablets + phones.
-       ======================================================================= */
+       Two breakpoints: 900px (tablets - stack the big two-column sections) and 680px
+       (phones - switch to the hamburger menu and sticky call bar).
+       ============================================================================================= */
     @media (max-width: 900px){
-      .heroGrid{grid-template-columns: 1fr}     /* stack hero;*/
-      .split{grid-template-columns: 1fr}        /* stack panels;*/
-      .tile{grid-column: span 6}                /* 2 tiles per row;*/
+      .heroGrid{grid-template-columns: 1fr}     /* stack hero card + side card */
+      .split{grid-template-columns: 1fr}        /* stack commercial/residential and form/contact */
       .footGrid{grid-template-columns: 1fr}
     }
-
+ 
     @media (max-width: 680px){
-      .navlinks, .ctaRow{display:none}          /* hide desktop nav/cta;*/
-      .hamburger{display:inline-flex}           /* show hamburger;*/
-      .tile{grid-column: span 12}               /* 1 tile per row;*/
-      .row2{grid-template-columns: 1fr}         /* form fields stack;*/
-      .stickyCall{display:flex}                 /* show sticky CTA;*/
+      .navlinks, .ctaRow{display:none}          /* replaced by the hamburger menu */
+      .hamburger{display:inline-flex}
+      .row2{grid-template-columns: 1fr}         /* form field pairs stack into one column */
+      .stickyCall{display:flex}
+      .container{width:min(1100px, 94vw)}       /* slightly wider margin usage on tiny screens */
+      body{padding-bottom: 84px;}               /* reserves space so the sticky bar never
+                                                     covers the footer/last form field */
+      .heroCard, .sideCard, .panel{padding:18px}
+      h1{letter-spacing:-.3px}
+      /* Borders get slightly more opaque on mobile specifically - outdoor / bright-light
+         phone viewing needs stronger edges to visually separate cards from the background. */
+      :root{ --line: rgba(16,24,39,.22); }
     }
   </style>
 </head>
-
+ 
 <body>
-  <!-- =======================================================================
-       TOPBAR
-       Sticky bar with brand, nav links, and CTA buttons.
-       ======================================================================= -->
+  <!-- ===========================================================================================
+       TOPBAR: sticky header with brand, desktop nav, desktop CTA buttons, and a hamburger
+       button that only appears on narrow screens (controlled purely by the CSS media query
+       above - the hamburger element always exists in the DOM, CSS just hides/shows it).
+       =========================================================================================== -->
   <div class="topbar">
     <div class="container">
       <div class="nav">
-        <!--
-          Brand area links back to the top of the page.
-        -->
+        <!-- Clicking the whole logo+name block jumps back to the top of the page (#top,
+             defined on the <header> element further down). -->
         <a class="brand" href="#top" aria-label="Home">
           <div class="logo" aria-hidden="true"></div>
           <div>
@@ -476,81 +682,67 @@
             <small>Commercial & Residential Plumbing</small>
           </div>
         </a>
-
-        <!--
-          Desktop nav links.
-        -->
+ 
+        <!-- aria-label identifies this <nav> for screen readers, since a page can have
+             more than one <nav> element (this one, plus the mobile menu below). -->
         <nav class="navlinks" aria-label="Primary navigation">
           <a href="#services">Services</a>
           <a href="#commercial">Commercial</a>
           <a href="#residential">Residential</a>
           <a href="#contact">Contact</a>
         </nav>
-
-        <!--
-          Desktop call-to-action buttons.
-        -->
+ 
         <div class="ctaRow">
-          <!-- tel: link triggers a phone dialer on mobile devices.
+          <!-- tel: links open the device's native phone dialer app pre-filled with this
+               number - works on virtually every mobile browser. -->
           <a class="btn danger" href="tel:+14079677764" aria-label="Call for emergency plumbing">
             🚨 Emergency Call
           </a>
-
           <a class="btn primary" href="#contact">Get a Quote</a>
         </div>
-
-        <!--
-          Hamburger button only visible on small screens.
-        -->
+ 
+        <!-- aria-expanded is toggled true/false by the JS below every time this is clicked,
+             so screen readers announce whether the menu is currently open. -->
         <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
           ☰
         </button>
       </div>
-
-      <!--
-        Mobile menu panel (hidden by default; toggled with JS).
-      -->
+ 
+      <!-- The mobile dropdown menu. display:none by default; JS flips it to display:block. -->
       <div class="mobilePanel" id="mobilePanel" aria-label="Mobile menu">
         <div class="stack">
           <a href="#services">Services</a>
           <a href="#commercial">Commercial</a>
           <a href="#residential">Residential</a>
           <a href="#contact">Contact</a>
-
           <a class="btn danger" href="tel:+14079677764">🚨 Emergency Call</a>
           <a class="btn primary" href="#contact">Get a Quote</a>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- =======================================================================
-       HERO
-       Primary marketing message + quick buttons + highlights.
-       ======================================================================= -->
+ 
+  <!-- ===========================================================================================
+       HERO: the main above-the-fold pitch. id="top" is the scroll target for the brand link.
+       =========================================================================================== -->
   <header class="container hero" id="top">
     <div class="heroGrid">
-
-      <!-- Main hero content.-->
+ 
       <div class="heroCard">
-        <h1>Fast, clean plumbing work—done right the first time.</h1>
-
+        <h1>Fast, clean plumbing work&mdash;done right the first time.</h1>
+ 
         <p class="sub">
-          <!-- What you do + who you serve.
           JD The Plumber LLC handles residential service calls and commercial plumbing needs:
           repairs, installs, water heaters, drain & sewer, leak detection, and preventative maintenance.
         </p>
-
+ 
         <div class="heroActions">
           <a class="btn primary" href="#services">Browse Services</a>
-
-          <!-- Phone link.-->
           <a class="btn" href="tel:+14079677764">Call (407) 967-7764</a>
-
           <a class="btn" href="#contact">Schedule Service</a>
         </div>
-
-        <!-- Small credibility + positioning statements.
+ 
+        <!-- Quick trust signals / credibility markers, shown as small pill badges. -->
         <div class="pillRow" aria-label="Highlights">
           <span class="pill">Licensed & insured</span>
           <span class="pill">Upfront pricing</span>
@@ -559,11 +751,12 @@
           <span class="pill">Emergency service</span>
         </div>
       </div>
-
-      <!-- Secondary card with value points;-->
+ 
+      <!-- <aside> is the semantically correct tag for supplementary content next to the
+           main hero message (as opposed to another <div>, which carries no meaning). -->
       <aside class="sideCard" aria-label="Quick info">
         <h2>What you get</h2>
-
+ 
         <div class="kv">
           <div class="item">
             <div class="dot" aria-hidden="true"></div>
@@ -572,7 +765,7 @@
               <span>We confirm arrival windows and keep you updated.</span>
             </div>
           </div>
-
+ 
           <div class="item">
             <div class="dot" aria-hidden="true"></div>
             <div>
@@ -580,7 +773,7 @@
               <span>Shoe covers, clean up, and respect for your property.</span>
             </div>
           </div>
-
+ 
           <div class="item">
             <div class="dot" aria-hidden="true"></div>
             <div>
@@ -589,90 +782,97 @@
             </div>
           </div>
         </div>
-
-        <!-- Contact email.-->
+ 
+        <!-- SECURITY / SPAM NOTE: this email address is in plain, unobfuscated text in the
+             page source. Spam bots that crawl the web specifically scrape mailto: links and
+             plain-text email addresses to build spam lists. This is a very common and
+             low-severity tradeoff (obfuscating it would also hurt legitimate contact and
+             SEO), but it's worth knowing this address WILL end up on spam lists over time.
+             A business inbox filter is the practical mitigation, not code changes here. -->
         <p class="fineprint">
-          Email: <b><a href="mailto:jdplumberusa@gmail.com">jdplumberusa@gmail.com</a></b>
+          Email: <a href="mailto:jdplumberusa@gmail.com">jdplumberusa@gmail.com</a>
         </p>
       </aside>
     </div>
   </header>
-
-  <!-- =======================================================================
-       SERVICES (TILES)
-       Tap a tile to preselect the service in the form.
-       ======================================================================= -->
+ 
+  <!-- ===========================================================================================
+       SERVICE TILES: tapping a tile pre-selects that service in the quote form's dropdown
+       and scrolls down to the form (see the JS at the bottom of this file).
+       =========================================================================================== -->
   <section class="container tiles" id="services">
     <div class="sectionHead">
       <div>
         <h2>Select a service</h2>
         <p>Tap a tile to jump to the quote form with that service pre-selected.</p>
       </div>
-      <p><a class="btn" href="#contact">Or request a custom quote →</a></p>
+      <a class="btn" href="#contact">Or request a custom quote →</a>
     </div>
-
-    <!--
-      Each tile is a <button> with a data-service attribute.
-          JS reads data-service and sets the dropdown.
-          JS lee data-service y ajusta el desplegable.
-    -->
+ 
+    <!-- role="list" / role="listitem": <button> elements aren't semantically list items by
+         default, so these ARIA roles tell screen readers "this is a group of 9 items,"
+         matching what a sighted user visually perceives as a grid of tiles.
+ 
+         data-service on each button is read by the JS below with
+         tile.getAttribute('data-service') and written straight into the <select> dropdown's
+         value - this is what makes "tap a tile -> form pre-fills" work without a page reload. -->
     <div class="grid" role="list">
       <button class="tile" role="listitem" data-service="Emergency Plumbing">
         <div class="icon" aria-hidden="true">🚨</div>
         <h3>Emergency Plumbing</h3>
-        <p>Burst pipes, backups, active leaks—call now.</p>
+        <p>Burst pipes, backups, active leaks&mdash;call now.</p>
         <small>Choose this service →</small>
       </button>
-
+ 
       <button class="tile" role="listitem" data-service="Drain Cleaning & Clogs">
         <div class="icon" aria-hidden="true">🌀</div>
         <h3>Drain Cleaning</h3>
         <p>Kitchen, bath, main line clogs and slow drains.</p>
         <small>Choose this service →</small>
       </button>
-
+ 
       <button class="tile" role="listitem" data-service="Leak Detection & Repair">
         <div class="icon" aria-hidden="true">💧</div>
         <h3>Leak Detection</h3>
         <p>Slab leaks, hidden leaks, pressure issues.</p>
         <small>Choose this service →</small>
       </button>
-
+ 
       <button class="tile" role="listitem" data-service="Water Heater Repair/Install">
         <div class="icon" aria-hidden="true">♨️</div>
         <h3>Water Heaters</h3>
         <p>Repair, replacement, tankless installs.</p>
         <small>Choose this service →</small>
       </button>
-
+ 
       <button class="tile" role="listitem" data-service="Sewer & Main Line">
         <div class="icon" aria-hidden="true">🧰</div>
         <h3>Sewer & Main Line</h3>
         <p>Camera inspections, root issues, repairs.</p>
         <small>Choose this service →</small>
       </button>
-
+ 
       <button class="tile" role="listitem" data-service="Fixture Install/Repair">
         <div class="icon" aria-hidden="true">🚿</div>
         <h3>Fixtures</h3>
         <p>Faucets, toilets, disposals, showers, valves.</p>
         <small>Choose this service →</small>
       </button>
-
+ 
       <button class="tile" role="listitem" data-service="Commercial Maintenance Plan">
         <div class="icon" aria-hidden="true">🏢</div>
         <h3>Commercial Maintenance</h3>
         <p>Preventative plans + priority response.</p>
         <small>Choose this service →</small>
       </button>
-
+ 
       <button class="tile" role="listitem" data-service="New Install / Remodel Plumbing">
         <div class="icon" aria-hidden="true">🛠️</div>
         <h3>Remodel / New Install</h3>
         <p>Bathrooms, kitchens, additions, repipes.</p>
         <small>Choose this service →</small>
       </button>
-
+ 
       <button class="tile" role="listitem" data-service="Backflow / Compliance">
         <div class="icon" aria-hidden="true">✅</div>
         <h3>Backflow / Compliance</h3>
@@ -681,11 +881,10 @@
       </button>
     </div>
   </section>
-
-  <!-- =======================================================================
-       COMMERCIAL / RESIDENTIAL SUMMARY
-       Two panels describing service types.
-       ======================================================================= -->
+ 
+  <!-- ===========================================================================================
+       COMMERCIAL / RESIDENTIAL SUMMARY PANELS
+       =========================================================================================== -->
   <section class="container" style="padding-bottom: 10px;">
     <div class="split">
       <div class="panel" id="commercial">
@@ -694,21 +893,21 @@
           Businesses need reliability. We support offices, retail, restaurants, multi-unit buildings,
           and property managers with maintenance plans and fast response.
         </p>
-        <ul style="margin:0; padding-left: 18px; color: var(--muted); font-size: 13px;">
+        <ul>
           <li>Preventative maintenance & inspections</li>
           <li>Backflow compliance & documentation</li>
           <li>After-hours service options</li>
           <li>Service logs for property managers</li>
         </ul>
       </div>
-
+ 
       <div class="panel" id="residential">
         <h2>Residential Plumbing</h2>
         <p>
           Clean workmanship, clear pricing, and respectful service in your home.
-          From clogs and leaks to water heater installs—we’ve got it.
+          From clogs and leaks to water heater installs&mdash;we&rsquo;ve got it.
         </p>
-        <ul style="margin:0; padding-left: 18px; color: var(--muted); font-size: 13px;">
+        <ul>
           <li>Drain & sewer service</li>
           <li>Fixture installs and repairs</li>
           <li>Leak detection & pipe repair</li>
@@ -717,44 +916,70 @@
       </div>
     </div>
   </section>
-
-  <!-- =======================================================================
-       CONTACT / QUOTE FORM
-       The form is mailto-based by default.
-           That means it opens the visitor's email app to send the details.
-       ======================================================================= -->
+ 
+  <!-- ===========================================================================================
+       QUOTE FORM + CONTACT CARD
+ 
+       SECURITY NOTE - READ THIS BEFORE CHANGING THE FORM:
+       This form uses action="mailto:..." with enctype="text/plain". That means when someone
+       clicks "Send Request," there is NO server involved at all - the browser just opens the
+       visitor's own email app with the form fields dropped into a pre-filled message. This
+       has real implications worth knowing:
+ 
+       1. IT ONLY WORKS IF THE VISITOR HAS AN EMAIL APP CONFIGURED ON THEIR DEVICE. Many
+          mobile browsers, and most desktop browsers with no default mail client set up,
+          will silently fail or show a confusing "no app found" error instead of sending
+          anything. This is a functionality risk more than a security one, but it can look
+          like the site is "losing" leads with no way to know it happened.
+ 
+       2. THERE IS NO SERVER-SIDE VALIDATION OR SANITIZATION, because there is no server.
+          Right now that's actually fine from a security standpoint - nothing typed into
+          these fields is ever executed, stored in a database, or redisplayed on the page,
+          so there's no realistic injection/XSS path through this specific form as written.
+ 
+       3. IF THIS FORM IS EVER SWITCHED to a real backend (a form-handling service like
+          Formspree/Netlify Forms, or a custom server endpoint) to fix problem #1 above,
+          the security posture changes completely and these protections become NECESSARY
+          at that point (none of them exist today because none of them are needed yet):
+             - Add a honeypot field or CAPTCHA (e.g. hCaptcha/reCAPTCHA) - public forms
+               with no protection are constantly targeted by spam bots.
+             - Sanitize/escape every field server-side before storing or emailing it -
+               never trust that the client-side "required"/type="email" attributes below
+               were actually respected, since anyone can bypass them by calling the
+               endpoint directly.
+             - Rate-limit submissions per IP to prevent automated spam floods.
+             - Serve the form page and the endpoint over HTTPS only (this repo doesn't
+               control hosting, but it's a hosting-level requirement to flag).
+       =========================================================================================== -->
   <section class="container" id="contact" style="padding-bottom: 48px;">
     <div class="split">
       <div class="panel">
         <h2>Request a quote / schedule service</h2>
-        <p>Fill this out and we’ll respond ASAP. For emergencies, call immediately.</p>
-
-        <!--
-          mailto form (no server needed, but depends on the visitor having an email app).
-        -->
+        <p>Fill this out and we&rsquo;ll respond ASAP. For emergencies, call immediately.</p>
+ 
         <form id="quoteForm"
               action="mailto:jdplumberusa@gmail.com"
               method="post"
               enctype="text/plain">
-
+ 
           <div class="row2">
             <label>
               Name
               <input name="Name" autocomplete="name" required placeholder="Your name" />
             </label>
-
+ 
             <label>
               Phone
               <input name="Phone" autocomplete="tel" required placeholder="(407) 967-7764" />
             </label>
           </div>
-
+ 
           <div class="row2">
             <label>
               Email
               <input type="email" name="Email" autocomplete="email" placeholder="you@domain.com" />
             </label>
-
+ 
             <label>
               Property Type
               <select name="Property Type" required>
@@ -764,7 +989,8 @@
               </select>
             </label>
           </div>
-
+ 
+          <!-- id="serviceSelect" is the JS hook the tile buttons above write into. -->
           <label>
             Service Needed
             <select name="Service" id="serviceSelect" required>
@@ -781,18 +1007,18 @@
               <option>Other / Not Sure</option>
             </select>
           </label>
-
+ 
           <label>
             Details
-            <textarea name="Details" placeholder="What’s going on?"></textarea>
+            <textarea name="Details" placeholder="What&rsquo;s going on?"></textarea>
           </label>
-
+ 
           <div class="row2">
             <label>
               Address
               <input name="Address" autocomplete="street-address" placeholder="Street / City (optional)" />
             </label>
-
+ 
             <label>
               Preferred timeframe
               <select name="Timeframe">
@@ -804,57 +1030,52 @@
               </select>
             </label>
           </div>
-
+ 
           <button class="btn primary" type="submit">Send Request</button>
-
+ 
           <div class="fineprint">
-            Prefer calling?
-            <a href="tel:+14079677764"><b>(407) 967-7764</b></a>
+            Prefer calling? <a href="tel:+14079677764">(407) 967-7764</a>
           </div>
         </form>
-
+ 
         <div class="fineprint">
-          This uses mailto (opens email). If you want “real” web form submissions,
-              use a form handler (Formspree/Netlify) or a backend.
-usa un servicio de formularios (Formspree/Netlify) o un backend.
+     <!--     This uses mailto (opens your email app). For "real" web form submissions,
+          use a form handler (Formspree/Netlify) or a backend&mdash;see the security note
+          in this file's HTML comments above the form for what that upgrade requires. -->
         </div>
       </div>
-
-      <!-- ===================================================================
-           CONTACT CARD
-           Simple contact info panel.
-           =================================================================== -->
+ 
       <div class="panel">
         <h2>Contact</h2>
-        <p>Reach us fast—especially for emergencies.</p>
-
-        <div style="display:grid; gap:10px;">
-          <div class="item" style="border-color: var(--line); background: rgba(23,32,51,.035);">
+        <p>Reach us fast&mdash;especially for emergencies.</p>
+ 
+        <div class="contactList">
+          <div class="item">
             <div class="dot" aria-hidden="true"></div>
             <div>
               <b>Phone</b>
               <span><a href="tel:+14079677764">(407) 967-7764</a></span>
             </div>
           </div>
-
-          <div class="item" style="border-color: var(--line); background: rgba(23,32,51,.035);">
+ 
+          <div class="item">
             <div class="dot" aria-hidden="true"></div>
             <div>
               <b>Email</b>
               <span><a href="mailto:jdplumberusa@gmail.com">jdplumberusa@gmail.com</a></span>
             </div>
           </div>
-
-          <div class="item" style="border-color: var(--line); background: rgba(23,32,51,.035);">
+ 
+          <div class="item">
             <div class="dot" aria-hidden="true"></div>
             <div>
               <b>Hours</b>
-              <span>Mon–Sat: 8am–6pm • Emergency: 24/7</span>
+              <span>Mon&ndash;Sat: 8am&ndash;6pm • Emergency: 24/7</span>
             </div>
           </div>
         </div>
-
-        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+ 
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
           <a class="btn danger" href="tel:+14079677764">🚨 Emergency Call</a>
           <a class="btn" href="#services">Browse Tiles</a>
           <a class="btn" href="mailto:jdplumberusa@gmail.com">Email</a>
@@ -862,106 +1083,108 @@ usa un servicio de formularios (Formspree/Netlify) o un backend.
       </div>
     </div>
   </section>
-
-  <!-- =======================================================================
+ 
+  <!-- ===========================================================================================
        FOOTER
-       Footer with quick links and emergency call.
-       ======================================================================= -->
+       =========================================================================================== -->
   <footer>
     <div class="container footGrid">
       <div>
         <b>JD The Plumber LLC</b><br />
         <span>Commercial & Residential Plumbing</span>
-
-        <div style="margin-top:10px;" class="footLinks">
+ 
+        <div style="margin-top:12px;" class="footLinks">
           <a href="#services">Services</a>
           <a href="#contact">Get a Quote</a>
           <a href="tel:+14079677764">Call</a>
           <a href="mailto:jdplumberusa@gmail.com">Email</a>
         </div>
       </div>
-
+ 
       <div>
-        <div style="border:1px solid var(--line); border-radius: 16px; padding: 12px; background: rgba(23,32,51,.025);">
+        <div class="emergencyBox">
           <b>Emergency?</b><br />
           <span>Call: <a href="tel:+14079677764">(407) 967-7764</a></span>
         </div>
-
+ 
         <div style="margin-top:10px;">
-          <!-- Year is filled in by JS below.-->
+          <!-- Filled in by JS below, so the copyright year never needs to be manually
+               updated every January 1st. -->
           <span>© <span id="year"></span> JD The Plumber LLC. All rights reserved.</span>
         </div>
       </div>
     </div>
   </footer>
-
-  <!-- =======================================================================
-       STICKY MOBILE CTA
-       Bottom fixed buttons for quick actions on mobile.
-       ======================================================================= -->
+ 
+  <!-- ===========================================================================================
+       STICKY MOBILE CTA BAR: exists in the DOM at all times, but CSS only makes it visible
+       (display:flex) under the 680px breakpoint - see the media query in <style> above.
+       =========================================================================================== -->
   <div class="stickyCall" aria-label="Mobile quick actions">
     <a class="btn danger" href="tel:+14079677764">🚨 Emergency Call</a>
     <a class="btn primary" href="#contact">Get a Quote</a>
   </div>
-
+ 
   <script>
-    /* =======================================================================
+    /* =============================================================================================
        JAVASCRIPT
-       Interactivity for mobile menu, tile selection, and year display.
-       ======================================================================= */
-
-    // -----------------------------------------------------------------------
-    // Mobile menu toggle (hamburger opens/closes the panel).
-    // -----------------------------------------------------------------------
+       Three small, independent behaviors - none of them talk to a server, none of them read
+       or write anything sensitive, and none of them use innerHTML/eval/document.write with
+       user-provided data, which is the most common source of client-side XSS bugs. All DOM
+       writes below use .textContent or .value, which browsers treat as plain text (never
+       parsed as HTML), so there's no code-injection path through this script as written.
+       ============================================================================================= */
+ 
+    // --- Mobile menu toggle -----------------------------------------------------------------
+    // "?." (optional chaining) means: if #hamburger doesn't exist on the page for some reason,
+    // this line does nothing instead of throwing a JavaScript error that could break the
+    // other two features below it.
     const hamburger = document.getElementById('hamburger');
     const mobilePanel = document.getElementById('mobilePanel');
-
+ 
     hamburger?.addEventListener('click', () => {
-      // Check if panel is currently open.
       const open = mobilePanel.style.display === 'block';
-
-      // Toggle display.
       mobilePanel.style.display = open ? 'none' : 'block';
-
-      // Update accessibility attribute.
+      // Keep the aria-expanded attribute in sync with the actual visual state, so screen
+      // readers accurately announce "menu expanded" / "menu collapsed."
       hamburger.setAttribute('aria-expanded', String(!open));
     });
-
-    // -----------------------------------------------------------------------
-    // Set footer year automatically.
-    // -----------------------------------------------------------------------
+ 
+    // --- Auto-updating footer year ----------------------------------------------------------
+    // .textContent (not .innerHTML) is used deliberately: it inserts the year as plain text,
+    // so even if this value were ever swapped for something dynamic/user-supplied in the
+    // future, it could never be interpreted as HTML/script.
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // -----------------------------------------------------------------------
-    // Tile click -> selects the service in the dropdown -> jumps to #contact.
-    // -----------------------------------------------------------------------
+ 
+    // --- Service tile -> form pre-select -----------------------------------------------------
     const serviceSelect = document.getElementById('serviceSelect');
-
+ 
     document.querySelectorAll('.tile').forEach(tile => {
       tile.addEventListener('click', () => {
-        // Read service name from the tile.
         const service = tile.getAttribute('data-service');
-
+ 
         if (serviceSelect) {
-          // If that option exists, select it; else default to "Other / Not Sure".
+          // Only ever sets the dropdown to one of ITS OWN existing <option> values (or the
+          // "Other / Not Sure" fallback) - it never writes the data-service text directly
+          // into the page, so there's nothing here to sanitize even though the value
+          // technically originates from an HTML attribute.
           const opts = Array.from(serviceSelect.options).map(o => o.value);
           serviceSelect.value = opts.includes(service) ? service : "Other / Not Sure";
         }
-
-        // Jump/scroll to the contact section.
+ 
+        // Jumping via location.hash triggers the browser's native anchor-scroll behavior -
+        // no custom scroll animation code needed.
         window.location.hash = '#contact';
-
-        // On mobile, close the mobile menu if it was open.
+ 
+        // Auto-close the mobile menu after a tile tap, in case it was left open.
         if (window.innerWidth <= 680) {
           mobilePanel.style.display = 'none';
           hamburger.setAttribute('aria-expanded', 'false');
         }
       });
     });
-
-    // -----------------------------------------------------------------------
-    // Close mobile menu when clicking a mobile menu anchor link (#...).
-    // -----------------------------------------------------------------------
+ 
+    // --- Close mobile menu after tapping any link inside it ---------------------------------
     document.querySelectorAll('#mobilePanel a[href^="#"]').forEach(a => {
       a.addEventListener('click', () => {
         mobilePanel.style.display = 'none';
@@ -971,3 +1194,4 @@ usa un servicio de formularios (Formspree/Netlify) o un backend.
   </script>
 </body>
 </html>
+ 
